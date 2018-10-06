@@ -23,12 +23,16 @@ class _BaseSelfAttention(nn.Module):
     def forward(self, X):
         raise NotImplementedError
 
+    def score(self, a, b):
+        raise NotImplementedError
+
 
 class SentenceEmbedding(_BaseSelfAttention):
 
     def __init__(self, embedding_dim, hidden_dim, num_annotations):
-        """
-        Given a sentence of words, turn the sequence of word embeddings into a single sentence embedding that attends to important part of the sentence
+        """ Structured Self-Attentive Sentence Embedding (https://arxiv.org/pdf/1703.03130.pdf)
+
+        Given a sentence of words, turn the sequence of word embeddings into a single sentence embedding that attends to important part of the sentence. The number of output sentence embeddings is determined by the number of annotations specified at module initialization. 
         """
         super(SentenceEmbedding, self).__init__()
         # Save Parameters for reference
@@ -43,8 +47,7 @@ class SentenceEmbedding(_BaseSelfAttention):
         self.init_linear(self.Ws2)
 
     def forward(self, word_embeddings):
-        """Given a sentence of words, turn the sequence of word embeddings into a series of sentence embeddings that pay attention to different parts of the sentence. The number of output sentence embeddings is determined by the number of annotations specified at module initialization.
-
+        """
         Args:
             word_embeddings: 
                 (batch_size, doc_maxlen, embedding_dim)
@@ -62,3 +65,18 @@ class SentenceEmbedding(_BaseSelfAttention):
         sentence_embedding = atten_weights.bmm(word_embeddings)
         # dim: (batch_size, num_annotations, embedding_dim)
         return sentence_embedding
+
+class MultiHeadSelfAttention(nn.Module):
+
+    def __init__(self):
+        """
+        Multi-head Self Attention mechanism from the Transformer architecture (https://arxiv.org/pdf/1706.03762.pdf).
+        """
+        super(MultiHeadSelfAttention, self).__init__()
+
+    def forward(self, X):
+        raise NotImplementedError
+
+    def score(self, a, b):
+        raise NotImplementedError
+
