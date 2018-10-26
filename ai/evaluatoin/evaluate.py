@@ -4,7 +4,7 @@ Core Evaluation Modules
 
 from sklearn import metrics as metrics
 
-def compute_accuracy(prediction, ground_truth):
+def accuracy(prediction, ground_truth):
     """
     Return the accuracy score evaluated between PREDICTION and GROUND_TRUTH
     """
@@ -14,7 +14,7 @@ def compute_accuracy(prediction, ground_truth):
                 normalize=True
             )
 
-def compute_n_correct_samples(prediction, ground_truth):
+def n_correct_samples(prediction, ground_truth):
     """
     Return the number of correctly classified samples between PREDICTION and GROUND_TRUTH
     """
@@ -24,7 +24,7 @@ def compute_n_correct_samples(prediction, ground_truth):
                 normalize=False
             )
 
-def compute_f1(prediction, ground_truth, average="macro"):
+def f1(prediction, ground_truth, average="macro"):
     """
     Return the f1 score evaluated between PREDICTION and GROUND_TRUTH
 
@@ -36,7 +36,7 @@ def compute_f1(prediction, ground_truth, average="macro"):
                 average=average
             )
 
-def compute_confusion_matrix(prediction, ground_truth):
+def confusion_matrix(prediction, ground_truth):
     """
     Return the confusion matrix evaluated between PREDICTION and GROUND_TRUTH
     """
@@ -45,7 +45,7 @@ def compute_confusion_matrix(prediction, ground_truth):
                 ground_truth
             )
 
-def compute_precision(prediction, ground_truth, average="macro"):
+def precision(prediction, ground_truth, average="macro"):
     """
     Return the precision score evaluated between PREDICTION and GROUND_TRUTH
 
@@ -57,7 +57,7 @@ def compute_precision(prediction, ground_truth, average="macro"):
                 average=average
             )
 
-def compute_recall(prediction, ground_truth, average="macro"):
+def recall(prediction, ground_truth, average="macro"):
     """
     Return the recall score evaluated between PREDICTION and GROUND_TRUTH
 
