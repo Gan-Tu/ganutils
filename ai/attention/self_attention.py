@@ -6,16 +6,21 @@ import torch
 import torch.nn as nn
 import numpy as np
 
-class _BaseSelfAttention(nn.Module):
+
+######################################################################
+# Base Class for Self Attention Mechanisms
+# =========================================
+#
+
+class BaseSelfAttention(nn.Module):
 
     def __init__(self):
-        super(_BaseSelfAttention, self).__init__()
+        super(BaseSelfAttention, self).__init__()
 
     def init_linear(self, input_linear):
-        """
-        Initialize linear transformation
-        """
-        bias = np.sqrt(6.0 / (input_linear.weight.size(0) + input_linear.weight.size(1)))
+        """Initialize linear transformation"""
+        bias = np.sqrt(6.0 / (input_linear.weight.size(0) + \
+            input_linear.weight.size(1)))
         nn.init.uniform_(input_linear.weight, -bias, bias)
         if input_linear.bias is not None:
             input_linear.bias.data.zero_()
@@ -27,13 +32,21 @@ class _BaseSelfAttention(nn.Module):
         raise NotImplementedError
 
 
-class SentenceEmbedding(_BaseSelfAttention):
+######################################################################
+# Structured Self-Attentive Sentence Embedding
+# =============================================
+#
+# Paper: https://arxiv.org/pdf/1703.03130.pdf
+#
+# Given a sentence of words, turn the sequence of word embeddings into 
+# a single sentence embedding that attends to important part of the 
+# sentence. The number of output sentence embeddings is determined by 
+# the number of annotations specified at module initialization. 
+#
+
+class SentenceEmbedding(BaseSelfAttention):
 
     def __init__(self, embedding_dim, hidden_dim, num_annotations):
-        """ Structured Self-Attentive Sentence Embedding (https://arxiv.org/pdf/1703.03130.pdf)
-
-        Given a sentence of words, turn the sequence of word embeddings into a single sentence embedding that attends to important part of the sentence. The number of output sentence embeddings is determined by the number of annotations specified at module initialization. 
-        """
         super(SentenceEmbedding, self).__init__()
         # Save Parameters for reference
         self.embedding_dim = embedding_dim
@@ -66,12 +79,20 @@ class SentenceEmbedding(_BaseSelfAttention):
         # dim: (batch_size, num_annotations, embedding_dim)
         return sentence_embedding
 
+
+######################################################################
+#  Multi-head Self Attention Mechanisms
+# =============================================
+# 
+# Paper: https://arxiv.org/pdf/1706.03762.pdf
+#
+# This method uses the multi-head self attention technique from 
+# the Transformer architecture.
+#
+
 class MultiHeadSelfAttention(nn.Module):
 
     def __init__(self):
-        """
-        Multi-head Self Attention mechanism from the Transformer architecture (https://arxiv.org/pdf/1706.03762.pdf).
-        """
         super(MultiHeadSelfAttention, self).__init__()
 
     def forward(self, X):
