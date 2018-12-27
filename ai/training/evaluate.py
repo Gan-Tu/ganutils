@@ -1,4 +1,4 @@
-"""evaluate
+"""training.evaluate
 Core Evaluation Modules
 """
 
