@@ -1,4 +1,4 @@
-"""helper.url
+"""url
 URL helpers
 """
 
@@ -9,6 +9,7 @@ def fixURL(url):
     if url.startswith("www."):
         url = "http://{}".format(url)
     return url
+
 
 def request(url, params=None):
     url = fixURL(url)

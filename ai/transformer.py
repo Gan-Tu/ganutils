@@ -1,4 +1,4 @@
-"""net.transformer
+"""transformer
 Transformer Architecture (https://arxiv.org/pdf/1706.03762.pdf)
 """
 
@@ -6,6 +6,7 @@ import torch
 import torch.nn as nn
 import numpy as np
 from attention.self_attention import MultiHeadSelfAttention
+
 
 class Transformer(nn.Module):
 

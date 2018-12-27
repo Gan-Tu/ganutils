@@ -1,4 +1,4 @@
-"""helper.iterable
+"""iterable
 Helpers for dealing with iterables
 """
 
@@ -6,6 +6,7 @@ Helpers for dealing with iterables
 # List Manipulation
 # =================
 #
+
 
 def flattenCustom(lst, flattenTypes):
     def flattenHelper(seq):
@@ -16,11 +17,13 @@ def flattenCustom(lst, flattenTypes):
                 yield x
     return list(flattenHelper(lst))
 
+
 def flatten(lst):
     return flattenCustom(
                 lst, 
                 flattenTypes=(list, tuple, set, dict)
             )
+
 
 def shuffleFirstAxis(arrays):
     """
@@ -30,8 +33,10 @@ def shuffleFirstAxis(arrays):
     random.shuffle(arrays)
     return arrays
 
+
 def unique(array):
     return list(set(array))
+
 
 def uniqueOrdered(array):
     seen = set()
@@ -41,6 +46,7 @@ def uniqueOrdered(array):
             seen.add(x)
             res.append(x)
     return res
+
 
 def strAll(array):
     return [str(x) for x in array]
@@ -54,11 +60,14 @@ def strAll(array):
 def getDictKeys(d):
     return list(d.keys())
 
+
 def getDictValues(d):
     return list(d.values())
 
+
 def getDictItems(d):
     return list(d.items())
+
 
 def toDict(keys, values):
     if len(keys) != len(values):
@@ -66,9 +75,11 @@ def toDict(keys, values):
         warnings.warn("Keys and values are not of same length.")
     return dict(zip(keys, values))
 
+
 def printDictPretty(d):
     import json
     print(json.dumps(d, indent=2))
+
 
 ###############################################################
 # Selections
@@ -79,6 +90,7 @@ def randomElement(array):
     import random
     return random.choice(array)
 
+
 def randomElements(array, size, replacement=True):
     if replacement:
         import random
@@ -87,15 +99,19 @@ def randomElements(array, size, replacement=True):
         import numpy as np
         return np.random.choice(array, size, replace=False)
 
+
 ##############################################################
 # Advanced
 # ==============
 #
 
-
 def loadArrayFromString(string, dtype=None):
     import numpy as np
+    from io import StringIO
     if dtype == None:
         dtype = np.float64
-    return np.loadtxt(StringIO(string.replace("[","").replace("]",""))).astype(dtype)
+    string = string.replace("[","")
+    string = string.replace("]","")
+    string = string.replace(",", " ")
+    return np.loadtxt(StringIO(string)).astype(dtype)
 

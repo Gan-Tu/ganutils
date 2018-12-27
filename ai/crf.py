@@ -1,4 +1,4 @@
-"""extended.crf
+"""crf
 Conditional Random Field in PyTorch
 """
 

@@ -1,4 +1,4 @@
-"""attention.attention
+"""attention
 PyTorch Core Attention Modules
 """
 
@@ -6,7 +6,7 @@ import torch
 import torch.nn as nn
 import numpy as np
 
-######################################################################
+#####################################################################
 # Base Class for Attention Mechanisms
 # ===================================
 #
@@ -16,6 +16,7 @@ class BaseAttention(nn.Module):
     def __init__(self):
         super(BaseAttention, self).__init__()
 
+    
     def init_linear(self, input_linear):
         """Initialize linear transformation"""
         bias = np.sqrt(6.0 / (input_linear.weight.size(0) + input_linear.weight.size(1)))
@@ -23,13 +24,20 @@ class BaseAttention(nn.Module):
         if input_linear.bias is not None:
             input_linear.bias.data.zero_()
 
+
+    def initialize_layers(self):
+        raise NotImplementedError
+
+    
     def forward(self, X):
         raise NotImplementedError
 
+    
     def score(self, a, b):
         raise NotImplementedError
 
-######################################################################
+
+#####################################################################
 # Bahdanau Attention
 # ====================
 #
@@ -47,11 +55,14 @@ class BahdanauAttention(BaseAttention):
     def __init__(self):
         super(BahdanauAttention, self).__init__()
 
+    
     def forward(self, X):
         raise NotImplementedError
 
+
     def score(self, a, b):
         raise NotImplementedError
+
 
 ######################################################################
 # Luong Attention
@@ -85,8 +96,10 @@ class LuongAttention(BaseAttention):
     def __init__(self, hidden_dim, scoring="dot", local=False):
         super(BaseAttention, self).__init__()
 
+
     def forward(self, X):
         raise NotImplementedError
+
 
     def score(self, a, b):
         raise NotImplementedError
@@ -107,8 +120,10 @@ class KVQAttention(nn.Module):
     def __init__(self):
         super(KVQAttention, self).__init__()
 
+
     def forward(self, X):
         raise NotImplementedError
+
 
     def score(self, a, b):
         raise NotImplementedError

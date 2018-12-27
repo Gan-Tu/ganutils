@@ -1,4 +1,4 @@
-"""evaluation.evaluate
+"""evaluate
 Core Evaluation Modules
 """
 

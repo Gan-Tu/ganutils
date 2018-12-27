@@ -1,4 +1,4 @@
-"""concurrent
+"""concurrency
 Core Concurrent Modules
 """
 
@@ -11,10 +11,8 @@ from multiprocessing import Pool, Lock
 # ===================================
 #
 
-def multiProcess(fn, iterable, num_threads, 
-                 pbar=False, desc=None):
-    if pbar: 
-        iterable = tqdm(iterable, desc=desc)
+def multiProcess(fn, iterable, num_threads, pbar=False, desc=None):
+    iterable = tqdm(iterable, desc=desc) if pbar else iterable
     pool = Pool(num_threads)
     res = pool.map(fn, iterable)
     pool.close()
