@@ -76,11 +76,12 @@ class Model(nn.Module):
         self.conv2 = nn.Conv2d(20, 20, 5)
 
     def forward(self, x):
-       x = F.relu(self.conv1(x))
-       return F.relu(self.conv2(x))
+        x = F.relu(self.conv1(x))
+        return F.relu(self.conv2(x))
 </code></pre>
 <p>Submodules assigned in this way will be registered, and will have their
-parameters converted too when you call :meth:<code>to</code>, etc.</p></section>
+parameters converted too when you call :meth:<code>to</code>, etc.</p>
+<p>Initializes internal Module state, shared by both nn.Module and ScriptModule.</p></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
