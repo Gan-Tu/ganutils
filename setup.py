@@ -17,11 +17,13 @@ setup(
   keywords = ['tugan', 'utils', 'tools'],
   install_requires=[
       'torch',
+      'torchvision',
       'numpy',
       'sklearn',
       'tqdm',
       'requests',
       'twilio',
+      'pdoc3'
   ],
   classifiers=[
     'Development Status :: 3 - Alpha',
