@@ -1,6 +1,6 @@
 # Gan's Utils
 
-![PyPi Publish Badge](https://github.com/Michael-Tu/ganutils/workflows/Publish%20PyPi%20Package/badge.svg) ![Documentation Generation Badge](https://github.com/Michael-Tu/ganutils/workflows/Automated%20Docs%20Generation/badge.svg) ![Issues Labeler Badge](https://github.com/Michael-Tu/ganutils/workflows/Issues%20Labeler/badge.svg)
+![Auto Release Badge](https://github.com/Michael-Tu/ganutils/workflows/Auto%20Release/badge.svg) ![PyPi Publish Badge](https://github.com/Michael-Tu/ganutils/workflows/Publish%20PyPi%20Package/badge.svg) ![Issues Labeler Badge](https://github.com/Michael-Tu/ganutils/workflows/Issues%20Labeler/badge.svg)
 
 This is an installable python package for scripts I wrote for myself.
 
