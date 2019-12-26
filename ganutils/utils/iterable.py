@@ -12,7 +12,7 @@ def flattenCustom(lst, flattenTypes):
     def flattenHelper(seq):
         for x in seq:
             if isinstance(x, flattenTypes):
-                yield from flatten(x)
+                yield from flattenCustom(x, flattenTypes)
             else:
                 yield x
     return list(flattenHelper(lst))
