@@ -5,3 +5,6 @@ __pycache__
 __MACOS
 *.o
 *.class
+dist/
+*.egg-info/
+build/
