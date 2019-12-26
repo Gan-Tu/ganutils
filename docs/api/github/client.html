@@ -72,7 +72,7 @@ class GithubClient(object):
     # GitHub Issue API
     ##########################
 
-    def create_issue(self, repo_owner, repo_name, title, body=None):
+    def create_issue(self, repo_owner, repo_name, title, body=&#34;&#34;):
         &#34;&#34;&#34;
         Create an issue on GitHub for REPO_OWNER/REPO_NAME with
         the given TITLE and BODY. Return the response.
@@ -148,7 +148,7 @@ class GithubClient(object):
     # GitHub Issue API
     ##########################
 
-    def create_issue(self, repo_owner, repo_name, title, body=None):
+    def create_issue(self, repo_owner, repo_name, title, body=&#34;&#34;):
         &#34;&#34;&#34;
         Create an issue on GitHub for REPO_OWNER/REPO_NAME with
         the given TITLE and BODY. Return the response.
@@ -193,7 +193,7 @@ the given ISSUE_NUMBER. Return the response.</p></section>
 </details>
 </dd>
 <dt id="ganutils.api.github.client.GithubClient.create_issue"><code class="name flex">
-<span>def <span class="ident">create_issue</span></span>(<span>self, repo_owner, repo_name, title, body=None)</span>
+<span>def <span class="ident">create_issue</span></span>(<span>self, repo_owner, repo_name, title, body='')</span>
 </code></dt>
 <dd>
 <section class="desc"><p>Create an issue on GitHub for REPO_OWNER/REPO_NAME with
@@ -202,7 +202,7 @@ the given TITLE and BODY. Return the response.</p></section>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def create_issue(self, repo_owner, repo_name, title, body=None):
+<pre><code class="python">def create_issue(self, repo_owner, repo_name, title, body=&#34;&#34;):
     &#34;&#34;&#34;
     Create an issue on GitHub for REPO_OWNER/REPO_NAME with
     the given TITLE and BODY. Return the response.

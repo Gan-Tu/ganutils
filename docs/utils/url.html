@@ -34,15 +34,21 @@ URL helpers
 import requests
 
 def fixURL(url):
-    assert type(url) == str, &#34;URL has to be a string&#34;
-    if url.startswith(&#34;www.&#34;):
-        url = &#34;http://{}&#34;.format(url)
-    return url
+  &#34;&#34;&#34;
+  .. todo:: fixes more cases
+  &#34;&#34;&#34;
+  assert type(url) == str, &#34;URL has to be a string&#34;
+  if url.startswith(&#34;www.&#34;):
+      url = &#34;http://{}&#34;.format(url)
+  return url
 
 
 def request(url, params=None):
-    url = fixURL(url)
-    return requests.get(url).content</code></pre>
+  &#34;&#34;&#34;
+  .. todo:: use params as necessary
+  &#34;&#34;&#34;
+  url = fixURL(url)
+  return requests.get(url).content</code></pre>
 </details>
 </section>
 <section>
@@ -56,30 +62,42 @@ def request(url, params=None):
 <span>def <span class="ident">fixURL</span></span>(<span>url)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<section class="desc"><div class="admonition todo">
+<p class="admonition-title">TODO</p>
+<p>fixes more cases</p>
+</div></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def fixURL(url):
-    assert type(url) == str, &#34;URL has to be a string&#34;
-    if url.startswith(&#34;www.&#34;):
-        url = &#34;http://{}&#34;.format(url)
-    return url</code></pre>
+  &#34;&#34;&#34;
+  .. todo:: fixes more cases
+  &#34;&#34;&#34;
+  assert type(url) == str, &#34;URL has to be a string&#34;
+  if url.startswith(&#34;www.&#34;):
+      url = &#34;http://{}&#34;.format(url)
+  return url</code></pre>
 </details>
 </dd>
 <dt id="ganutils.utils.url.request"><code class="name flex">
 <span>def <span class="ident">request</span></span>(<span>url, params=None)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<section class="desc"><div class="admonition todo">
+<p class="admonition-title">TODO</p>
+<p>use params as necessary</p>
+</div></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def request(url, params=None):
-    url = fixURL(url)
-    return requests.get(url).content</code></pre>
+  &#34;&#34;&#34;
+  .. todo:: use params as necessary
+  &#34;&#34;&#34;
+  url = fixURL(url)
+  return requests.get(url).content</code></pre>
 </details>
 </dd>
 </dl>
