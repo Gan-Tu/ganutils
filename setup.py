@@ -1,7 +1,7 @@
 from setuptools import setup
 setup(
   name = 'ganutils',
-  packages = ['ganutils'],
+  packages = ['utils'],
   version = '0.3',
   license='MIT',
   description = 'This is an installable python package for scripts I wrote for myself.',
