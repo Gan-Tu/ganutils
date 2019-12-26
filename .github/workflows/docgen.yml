@@ -18,6 +18,7 @@ jobs:
         python setup.py install
     - name: Generate documentation using pdoc
       run: |
+        rm -rf docs
         pdoc3 ganutils --html -o docs --force
         mv docs/ganutils/* docs/
         rm -rf docs/ganutils
