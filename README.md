@@ -2,6 +2,8 @@
 
 ![PyPi Publish Badge](https://github.com/Michael-Tu/ganutils/workflows/Publish%20PyPi%20Package/badge.svg)
 
+![Documentation Generation Badge](https://github.com/Michael-Tu/ganutils/workflows/Automated%20Docs%20Generation/badge.svg)
+
 This is an installable python package for scripts I wrote for myself.
 
 PyPi Package Page [link](https://pypi.org/project/ganutils/)
