@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 setup(
   name = 'ganutils',
   packages = find_packages(),
-  version = '0.9',
+  version = '0.10',
   license='MIT',
   description = 'This is an installable python package for scripts I wrote for myself.',
   author = 'Gan Tu',
