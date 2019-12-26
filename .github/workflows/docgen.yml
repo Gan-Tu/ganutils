@@ -1,5 +1,7 @@
 name: Automated Docs Generation
-on: [push]
+on:
+  release:
+    types: [created]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,7 +25,8 @@ jobs:
       run: |
         git config --local user.email "tugan@berkeley.edu"
         git config --local user.name "Gan Tu"
-        git commit -a -m "docs: automated update to docs/ doumentation [GitHub Action]"
+        git add -A
+        git commit -m "docs: automated update to docs/ doumentation [GitHub Action]"
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
