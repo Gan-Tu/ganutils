@@ -24,6 +24,17 @@ To deploy new versions to PyPi, change version number in `setup.py` and either
 - create a new release for repo and GitHub workflow will automatically deploy it
 - run `python setup.py sdist` and then `twine upload dist/*`.
 
+## Update Documentation
+
+Currently, upon each new release, my GitHub action will automatically build and generate documentation necessary.
+
+However, to manually generate documentation, I use [pdoc3](https://pdoc3.github.io):
+
+```
+$ pip3 install pdoc3 # install dependency
+$ pdoc3 --html ganutils # resulting docs will be in a new html/ folder
+```
+
 ## Dependencies
 
 You'll need `twine` installed via `pip` and PyPi credentials set at [`$HOME/.pypirc`](https://docs.python.org/3.3/distutils/packageindex.html#pypirc)
