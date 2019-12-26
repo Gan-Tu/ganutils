@@ -71,6 +71,7 @@ def convertEmailToToken(s, token="[email]"):
 def convertLinkToToken(s, token="[link]"):
     s = re.sub(r"https?://[a-z/A-Z\+\?=\-_\d\.]+", token, s)
     s = re.sub(r"www\.[a-z/A-Z\+\?=\-_\d\.]+", token, s)
+    # TODO(tugan): adds support for more top domain
     s = re.sub(r"[a-z/A-Z\+\?=\-_\d\.]+\.com", token, s)
     return s
 
