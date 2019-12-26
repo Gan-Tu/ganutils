@@ -1,21 +1,36 @@
-"""crf
-Conditional Random Field in PyTorch
+"""
+Conditional Random Field (CRF)
 """
 
 import torch
 import torch.nn as nn
 
 class CRF(nn.Module):
+    """
+    A Conditional Random Field (CRF) PyTorch Module
+
+    Attributes:
+        config : configuration objects
+            configuration used for setting up CRF
+        start_tag : int
+            encoding index for START token
+        pad_tag : int
+            encoding index for PADDING token
+        end_tag : int
+            encoding index for END token
+        transitions : 2D matrix of (config.label_size, config.label_size)
+            CRF transition scores between tokens
+    """
 
     def __init__(self, config, start_tag_idx, pad_tag_idx, end_tag_idx):
         super(CRF, self).__init__()
-        
+
         # Save parameters for reference
         self.config = config
         self.start_tag = start_tag_idx
         self.pad_tag = pad_tag_idx
         self.end_tag = end_tag_idx
-    
+
         ### Define Layers ###
         self.label_size = config.label_size
 
@@ -28,14 +43,14 @@ class CRF(nn.Module):
         self.transitions.data[self.start_tag, :] = 0 # can transit from start to anything
 
     def log_sum_exp(self, vec, m_size):
-        """
-        calculate log of exp sum
+        """Calculate the log of exponential sum
 
-        args:
-            vec (batch_size, vanishing_dim, hidden_dim) : input tensor
-            m_size : hidden_dim
-        return:
-            (batch_size, hidden_dim)
+        Args:
+            vec : a tensor of size (batch_size, vanishing_dim, hidden_dim)
+            m_size : the size of hidden_dim
+
+        Returns:
+            The log sum exp scores of size `(batch_size, hidden_dim)`
         """
         _, idx = torch.max(vec, 1)  # B * 1 * M
         max_score = torch.gather(vec, 1, idx.view(-1, 1, m_size)).view(-1, 1, m_size)  # B * M
@@ -44,12 +59,15 @@ class CRF(nn.Module):
 
     def get_crf_scores(self, scores):
         """
-        Args: 
-            scores: (batch_size, doc_maxlen, label_size)
-                values returned by RNN
-        Return: 
-            crf_scores: (batch_size, doc_maxlen+1, label_size(from), label_size(to))
-                for each batch, the score of taking tag_from at current timestamp (based from emission scores) and transitioning to tag_to in the next timestamp, for every possible such sequences
+        Args:
+            scores : a tensor of size (batch_size, doc_maxlen, label_size)
+                This is a tensor of output values returned by RNN
+
+        Returns:
+            A tensor of size `(batch_size, doc_maxlen+1, label_size(from), label_size(to))`
+
+            .. note::
+                This is a tensor consisting the scores of taking `tag_from` at current timestamp (based from emission scores) and transitioning to `tag_to` in the next timestamp, for every possible such sequences, for every batch.
         """
         batch_size = scores.size(0)
         doc_maxlen = scores.size(1)
@@ -64,25 +82,27 @@ class CRF(nn.Module):
         # dim: (batch_size * doc_maxlen, label_size, label_size)
         crf_scores = crf_scores.view(batch_size, doc_maxlen, self.label_size, self.label_size)
         # dim: (batch_size, doc_maxlen, label_size, label_size)
-        
+
         start_scores = self.transitions.expand(batch_size, 1, self.label_size, self.label_size)
         crf_scores = torch.cat([start_scores, crf_scores], dim=1)
         # dim: (batch_size, doc_maxlen+1, label_size(from), label_size(to))
         return crf_scores
 
     def get_loss(self, crf_scores, gold_target, mask=None, average_loss=True):
-        """
+        """Calculate the loss between CRF scores and golden target.
+
         Args:
-            crf_scores: (batch_size, doc_maxlen+1, label_size, label_size)
-                obtained from get_crf_scores function, where first timestamp is START
-            gold_target: (batch_size, doc_maxlen)
-                the gold tag sequences, in which we calculate the loss of crf_scores against
-            mask: (batch_size, doc_maxlen)
-                masks for padding. If none, no masks is used.
-            average_loss: boolean
+            crf_scores : a tensor of size (batch_size, doc_maxlen+1, label_size, label_size)
+                This is obtained from `get_crf_scores` function, where first timestamp is the START token
+            gold_target : a tensor of size (batch_size, doc_maxlen)
+                This is the gold tag sequences, in which we calculate the loss of crf_scores against.
+            mask : a tensor of size (batch_size, doc_maxlen)
+                This is the mask used for padding. If none, no masks is used.
+            average_loss : a boolean variable
                 Return the loss over all batches, if True; otherwise, return the average loss
-        return:
-            loss: the loss 
+
+        Returns:
+            The calculated loss, averaged if `average_loss` is set to True.
         """
 
         ### calculate batch size and seq len
@@ -92,7 +112,7 @@ class CRF(nn.Module):
         ### dim fix
         crf_scores = crf_scores.transpose(0, 1)
         # dim: (doc_maxlen+1, batch_size, label_size, label_size)
-        
+
         gold_target = gold_target.transpose(0, 1).unsqueeze(2)
         # dim: (doc_maxlen, batch_size, 1)
         start_broadcast = torch.full((1, batch_size, 1), self.start_tag, device=crf_scores.device)
@@ -116,7 +136,7 @@ class CRF(nn.Module):
         tg_energy = tg_energy.view(doc_maxlen+1, batch_size)
         # dim: (doc_maxlen+1, batch_size)
         tg_energy = tg_energy.masked_select(mask).sum()
-        
+
         ### calculate forward partition score
 
         seq_iter = enumerate(crf_scores)
@@ -137,7 +157,7 @@ class CRF(nn.Module):
             # dim: (batch_size, label_size(to))
             mask_idx = mask[idx, :].view(batch_size, 1).expand(batch_size, self.label_size)
             # dim: (batch_size, label_size(to))
-            forscores.masked_scatter_(mask_idx, cur_partition.masked_select(mask_idx)) 
+            forscores.masked_scatter_(mask_idx, cur_partition.masked_select(mask_idx))
             # dim: (batch_size, label_size(to))
 
         # only need end at end_tag
@@ -151,16 +171,18 @@ class CRF(nn.Module):
         return loss
 
     def decode(self, crf_scores, mask=None):
-        """
-        Find the optimal path with viterbe decode
+        """Find the optimal path using Viterbe decoding
 
         Args:
-            crf_scores: (batch_size, doc_maxlen+1, label_size(from), label_size(to))
-                obtained from get_crf_scores function; for each batch, the score of taking tag_from at current timestamp (based from emission scores) and transitioning to tag_to in the next timestamp, for every possible such sequences
-            mask: (batch_size, doc_maxlen)
-                masks for padding. If none, no masks is used.
-        return:
-            decoded_sequence: (batch_size, doc_maxlen)
+            crf_scores : a tensor of size (batch_size, doc_maxlen+1,label_size(from), label_size(to))
+
+                .. note::
+                    This is obtained from `get_crf_scores` function; for each batch, the score of taking `tag_from` at current timestamp (based from emission scores) and transitioning to `tag_to` in the next timestamp, for every possible such sequences
+            mask : a tensor of size `(batch_size, doc_maxlen)`
+                The mask used for padding. If none, no masks is used.
+
+        Returns:
+            The decoded_sequence of size `(batch_size, doc_maxlen)`
         """
         ### calculate batch size and seq len
         batch_size = crf_scores.size(0) # note, this may differ from config.batch_size
@@ -169,7 +191,7 @@ class CRF(nn.Module):
         ### dim fix
         crf_scores = crf_scores.transpose(0, 1).detach()
         # dim: (doc_maxlen+1, batch_size, label_size(from), label_size(to))
-        
+
         if mask is not None:
             mask = mask.transpose(0, 1).detach()
             # dim: (doc_maxlen, batch_size)
@@ -187,7 +209,7 @@ class CRF(nn.Module):
 
         ### calculate forward score and checkpoint
 
-        # Induction: 
+        # Induction:
         # if the optimal sequence needs to use tag_i of this current stamp, then tag_i must be the optimal sequence ending at tag_i. We call this the forward score, because we only need to compute it once and carry it forward.
 
         seq_iter = enumerate(crf_scores)
@@ -204,7 +226,7 @@ class CRF(nn.Module):
             # forscores:
             #     the scores of optimal paths ending at each possible current_tag, tag_i
             # transition_score:
-            #     the score of taking each possible current_tag, tag_i, at current timestamp 
+            #     the score of taking each possible current_tag, tag_i, at current timestamp
             #     and transitioning to any of the possible tags, tag_{i+1}, in next timstamp
             #     for every possible such sequences
 
@@ -218,15 +240,15 @@ class CRF(nn.Module):
 
             # forscores: (batch_size, label_size(to))
             #    contains the scores of optimal paths ending at each possible next_tag, tag_{i+1}, which will be used as that of the "current" score in next timestamp
-            
+
             # cur_bp: (batch_size, label_size(to))
             #    will then contain the pointers from each possible next_tag to its best tag to transition from at this current timestamp. This will then maksed, and append to back_points, so back_points will be (doc_maxlen-1, batch_size, label_size(to))
             #   NOTE, dimension 1 is of size label_size(to) but takes values of label_size(from)
-            
+
             # if any of the timestamp is padded (e.g. masked), then no matter where it goes in the next timestamp, it should transition from padding; by induction, it SHOULD continue to be this case, until all of paddings fill doc_maxlen
             cur_bp.masked_fill_(mask[idx].view(batch_size, 1).expand(batch_size, self.label_size), self.pad_tag)
-            
-            # sanity check: 
+
+            # sanity check:
             #   once it's padded, it should continue to be padded
             #   in future, because once padding started, it should
             #   continue to the end of document sequence
@@ -253,5 +275,20 @@ class CRF(nn.Module):
         return decoded_sequence
 
     def forward(self, scores, gold_target, mask=None, average_loss=True):
+        """Compute CRF loss using RNN output scores and golden target
+
+        Args:
+            scores : a tensor of size (batch_size, doc_maxlen, label_size)
+                This is a tensor of output values returned by RNN
+            gold_target : a tensor of size (batch_size, doc_maxlen)
+                This is the gold tag sequences, in which we calculate the loss of crf_scores against.
+            mask : a tensor of size (batch_size, doc_maxlen)
+                This is the mask used for padding. If none, no masks is used.
+            average_loss : a boolean variable
+                Return the loss over all batches, if True; otherwise, return the average loss
+
+        Returns:
+            The loss between CRF scores and golden target.
+        """
         crf_scores = self.get_crf_scores(scores)
         return self.get_loss(crf_scores, gold_target, mask=mask, average_loss=average_loss)
