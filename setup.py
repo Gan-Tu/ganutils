@@ -1,22 +1,20 @@
 from setuptools import setup
 setup(
   name = 'ganutils',
-  packages = ['utils'],
-  version = '0.4',
+  packages = ['utils', 'ai', 'data'],
+  version = '0.5',
   license='MIT',
   description = 'This is an installable python package for scripts I wrote for myself.',
   author = 'Gan Tu',
   author_email = 'tugan0329@gmail.com',
   url = 'https://github.com/Michael-Tu/ganutils',
-  download_url = 'https://github.com/Michael-Tu/ganutils/archive/v0.4.tar.gz',
   keywords = ['tugan', 'utils', 'tools'],
   install_requires=[
       'torch',
       'numpy',
       'sklearn',
       'tqdm',
-      'requests',
-      'pickle',
+      'requests'
   ],
   classifiers=[
     'Development Status :: 3 - Alpha',
