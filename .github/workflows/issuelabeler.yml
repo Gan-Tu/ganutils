@@ -1,0 +1,39 @@
+name: Issues Labeler
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: "Apply labels to issues related with: docs"
+      uses: Naturalclar/issue-action@v1.0.0
+      with:
+        github-token: "${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}"
+        keywords:  '["docs", "documentation"]'
+        assignees: '["Michael-Tu"]'
+        labels: '["docs"]'
+    - name: "Apply labels to issues related with: bug"
+      uses: Naturalclar/issue-action@v1.0.0
+      with:
+        github-token: "${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}"
+        keywords:  '["bug", "bugs", "broken"]'
+        assignees: '["Michael-Tu"]'
+        labels: '["bug"]'
+    - name: "Apply labels to issues related with: dependencies"
+      uses: Naturalclar/issue-action@v1.0.0
+      with:
+        github-token: "${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}"
+        keywords:  '["dependencies", "dependency"]'
+        assignees: '["Michael-Tu"]'
+        labels: '["dependencies"]'
+    - name: "Apply labels to issues related with: enhancements"
+      uses: Naturalclar/issue-action@v1.0.0
+      with:
+        github-token: "${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}"
+        keywords:  '["new", "feature"]'
+        assignees: '["Michael-Tu"]'
+        labels: '["enhancements"]'
