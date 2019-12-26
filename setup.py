@@ -1,8 +1,8 @@
 from setuptools import setup
 setup(
   name = 'ganutils',
-  packages = ['utils', 'ai', 'data'],
-  version = '0.5',
+  packages = ['ganutils'],
+  version = '0.8',
   license='MIT',
   description = 'This is an installable python package for scripts I wrote for myself.',
   author = 'Gan Tu',
