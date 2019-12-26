@@ -25,7 +25,7 @@ jobs:
         git checkout master
     - name: Generate documentation using pdoc
       run: |
-        rm -rf docs
+        rm -rf docs/*
         pdoc3 ganutils --html -o docs --force
         mv docs/ganutils/* docs/
         rm -rf docs/ganutils
