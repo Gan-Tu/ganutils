@@ -1,0 +1,29 @@
+name: Automated Docs Generation
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pdoc3
+    - name: Generate documentation using pdoc
+      run: |
+        pdoc3 ganutils --html -o docs --force
+        mv docs/ganutils/* docs/
+        rm -rf docs/ganutils
+    - name: Git commit new documentation
+      run: |
+        git config --local user.email "tugan@berkeley.edu"
+        git config --local user.name "Gan Tu"
+        git commit -a -m "docs: automated update to docs/ doumentation [GitHub Action]"
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}
