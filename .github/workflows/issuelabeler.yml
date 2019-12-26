@@ -38,4 +38,4 @@ jobs:
         github-token: "${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}"
         keywords:  '["new", "feature", "rename", "refactor", "style", "support", "implement"]'
         assignees: '["Michael-Tu"]'
-        labels: '["enhancements"]'
+        labels: '["enhancement"]'
