@@ -43,7 +43,7 @@ class GithubClient(object):
     # GitHub Issue API
     ##########################
 
-    def create_issue(self, repo_owner, repo_name, title, body=None):
+    def create_issue(self, repo_owner, repo_name, title, body=""):
         """
         Create an issue on GitHub for REPO_OWNER/REPO_NAME with
         the given TITLE and BODY. Return the response.
