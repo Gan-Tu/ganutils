@@ -32,7 +32,7 @@ jobs:
     - name: Git commit new documentation
       run: |
         git add -A
-        git commit -m "docs: automated update to docs/ doumentation [GitHub Action]"
+        git commit -m "docs: automated update to docs/ doumentation [GitHub Action]" || echo "No documentation changes"
     - name: Push documentation changes
       uses: ad-m/github-push-action@master
       with:
