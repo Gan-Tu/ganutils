@@ -1,6 +1,8 @@
 name: Issues Labeler
 
-on: [push]
+on:
+  issues:
+    types: [opened, edited]
 
 jobs:
   build:
@@ -34,6 +36,6 @@ jobs:
       uses: Naturalclar/issue-action@v1.0.0
       with:
         github-token: "${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}"
-        keywords:  '["new", "feature"]'
+        keywords:  '["new", "feature", "rename", "refactor", "style"]'
         assignees: '["Michael-Tu"]'
         labels: '["enhancements"]'
