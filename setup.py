@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 setup(
   name = 'ganutils',
   packages = find_packages(),
-  version = '0.10',
+  version = '0.11',
   license='MIT',
   description = 'This is an installable python package for scripts I wrote for myself.',
   author = 'Gan Tu',
@@ -14,7 +14,8 @@ setup(
       'numpy',
       'sklearn',
       'tqdm',
-      'requests'
+      'requests',
+      'twilio',
   ],
   classifiers=[
     'Development Status :: 3 - Alpha',
