@@ -4,8 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.7.2" />
-<title>ganutils API documentation</title>
-<meta name="description" content="" />
+<title>ganutils.utils.file API documentation</title>
+<meta name="description" content="io
+Core IO Modules" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -17,48 +18,164 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>ganutils</code></h1>
+<h1 class="title">Module <code>ganutils.utils.file</code></h1>
 </header>
 <section id="section-intro">
+<p>io
+Core IO Modules</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python"># This directory is a Python package</code></pre>
+<pre><code class="python">&#34;&#34;&#34;io
+Core IO Modules
+&#34;&#34;&#34;
+
+import os
+import json
+import pickle
+
+###############################################################
+# Common I/O operations
+# ======================
+#
+
+def makedirs(filepath):
+    os.makedirs(os.path.dirname(filepath), exist_ok=True)
+
+
+def walk(source_dir):
+    paths = list()
+    for root, dirs, files in os.walk(source_dir):
+        for filename in files:
+            paths.append(os.path.join(root, filename))
+    return paths
+
+
+def loadJSON(filepath, encoding=&#34;utf-8&#34;):
+    return json.load(open(filepath, &#34;r&#34;, encoding=encoding))
+
+
+def dumpJSON(obj, filepath, indent=None, ensure_ascii=False, makedir=True):
+    if makedir:
+        makedirs(filepath)    
+    json.dump(
+        obj, 
+        open(filepath, &#34;w&#34;), 
+        indent=indent, 
+        ensure_ascii=ensure_ascii
+    )
+
+
+def loadPickle(filepath):
+    return pickle.load(open(filepath, &#34;rb&#34;))
+
+
+def dumpPickle(obj, filepath, makedir=True):
+    if makedir:
+        makedirs(filepath)
+    pickle.dump(obj, open(filepath, &#34;wb&#34;))</code></pre>
 </details>
 </section>
 <section>
-<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt><code class="name"><a title="ganutils.ai" href="ai/index.html">ganutils.ai</a></code></dt>
+<dt id="ganutils.utils.file.dumpJSON"><code class="name flex">
+<span>def <span class="ident">dumpJSON</span></span>(<span>obj, filepath, indent=None, ensure_ascii=False, makedir=True)</span>
+</code></dt>
 <dd>
 <section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def dumpJSON(obj, filepath, indent=None, ensure_ascii=False, makedir=True):
+    if makedir:
+        makedirs(filepath)    
+    json.dump(
+        obj, 
+        open(filepath, &#34;w&#34;), 
+        indent=indent, 
+        ensure_ascii=ensure_ascii
+    )</code></pre>
+</details>
 </dd>
-<dt><code class="name"><a title="ganutils.algorithms" href="algorithms/index.html">ganutils.algorithms</a></code></dt>
+<dt id="ganutils.utils.file.dumpPickle"><code class="name flex">
+<span>def <span class="ident">dumpPickle</span></span>(<span>obj, filepath, makedir=True)</span>
+</code></dt>
 <dd>
 <section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def dumpPickle(obj, filepath, makedir=True):
+    if makedir:
+        makedirs(filepath)
+    pickle.dump(obj, open(filepath, &#34;wb&#34;))</code></pre>
+</details>
 </dd>
-<dt><code class="name"><a title="ganutils.api" href="api/index.html">ganutils.api</a></code></dt>
+<dt id="ganutils.utils.file.loadJSON"><code class="name flex">
+<span>def <span class="ident">loadJSON</span></span>(<span>filepath, encoding='utf-8')</span>
+</code></dt>
 <dd>
 <section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def loadJSON(filepath, encoding=&#34;utf-8&#34;):
+    return json.load(open(filepath, &#34;r&#34;, encoding=encoding))</code></pre>
+</details>
 </dd>
-<dt><code class="name"><a title="ganutils.data" href="data/index.html">ganutils.data</a></code></dt>
+<dt id="ganutils.utils.file.loadPickle"><code class="name flex">
+<span>def <span class="ident">loadPickle</span></span>(<span>filepath)</span>
+</code></dt>
 <dd>
 <section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def loadPickle(filepath):
+    return pickle.load(open(filepath, &#34;rb&#34;))</code></pre>
+</details>
 </dd>
-<dt><code class="name"><a title="ganutils.scripts" href="scripts/index.html">ganutils.scripts</a></code></dt>
+<dt id="ganutils.utils.file.makedirs"><code class="name flex">
+<span>def <span class="ident">makedirs</span></span>(<span>filepath)</span>
+</code></dt>
 <dd>
 <section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def makedirs(filepath):
+    os.makedirs(os.path.dirname(filepath), exist_ok=True)</code></pre>
+</details>
 </dd>
-<dt><code class="name"><a title="ganutils.utils" href="utils/index.html">ganutils.utils</a></code></dt>
+<dt id="ganutils.utils.file.walk"><code class="name flex">
+<span>def <span class="ident">walk</span></span>(<span>source_dir)</span>
+</code></dt>
 <dd>
 <section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def walk(source_dir):
+    paths = list()
+    for root, dirs, files in os.walk(source_dir):
+        for filename in files:
+            paths.append(os.path.join(root, filename))
+    return paths</code></pre>
+</details>
 </dd>
 </dl>
-</section>
-<section>
-</section>
-<section>
 </section>
 <section>
 </section>
@@ -69,14 +186,19 @@
 <ul></ul>
 </div>
 <ul id="index">
-<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<li><h3>Super-module</h3>
 <ul>
-<li><code><a title="ganutils.ai" href="ai/index.html">ganutils.ai</a></code></li>
-<li><code><a title="ganutils.algorithms" href="algorithms/index.html">ganutils.algorithms</a></code></li>
-<li><code><a title="ganutils.api" href="api/index.html">ganutils.api</a></code></li>
-<li><code><a title="ganutils.data" href="data/index.html">ganutils.data</a></code></li>
-<li><code><a title="ganutils.scripts" href="scripts/index.html">ganutils.scripts</a></code></li>
-<li><code><a title="ganutils.utils" href="utils/index.html">ganutils.utils</a></code></li>
+<li><code><a title="ganutils.utils" href="index.html">ganutils.utils</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="ganutils.utils.file.dumpJSON" href="#ganutils.utils.file.dumpJSON">dumpJSON</a></code></li>
+<li><code><a title="ganutils.utils.file.dumpPickle" href="#ganutils.utils.file.dumpPickle">dumpPickle</a></code></li>
+<li><code><a title="ganutils.utils.file.loadJSON" href="#ganutils.utils.file.loadJSON">loadJSON</a></code></li>
+<li><code><a title="ganutils.utils.file.loadPickle" href="#ganutils.utils.file.loadPickle">loadPickle</a></code></li>
+<li><code><a title="ganutils.utils.file.makedirs" href="#ganutils.utils.file.makedirs">makedirs</a></code></li>
+<li><code><a title="ganutils.utils.file.walk" href="#ganutils.utils.file.walk">walk</a></code></li>
 </ul>
 </li>
 </ul>

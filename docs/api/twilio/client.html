@@ -4,8 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.7.2" />
-<title>ganutils API documentation</title>
-<meta name="description" content="" />
+<title>ganutils.api.twilio.client API documentation</title>
+<meta name="description" content="client
+A Client for interfacing with Twilio" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -17,50 +18,101 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>ganutils</code></h1>
+<h1 class="title">Module <code>ganutils.api.twilio.client</code></h1>
 </header>
 <section id="section-intro">
+<p>client
+A Client for interfacing with Twilio</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python"># This directory is a Python package</code></pre>
+<pre><code class="python">&#34;&#34;&#34;client
+A Client for interfacing with Twilio
+&#34;&#34;&#34;
+
+import os
+from twilio.rest import Client
+
+class TwilioClient(object):
+
+    def __init__(self, account_sid, auth_token, account_phone):
+        &#34;&#34;&#34;
+        Initiate a custom Twilio Client
+        &#34;&#34;&#34;
+        self.client = Client(account_sid, auth_token)
+        self.account_phone = account_phone
+
+    ##########################
+    # Twilio API
+    ##########################
+
+    def text(self, to_number, text_body):
+        return self.client.messages.create(
+                from_=self.account_phone,
+                to=to_number,
+                body=text_body)</code></pre>
 </details>
 </section>
 <section>
-<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt><code class="name"><a title="ganutils.ai" href="ai/index.html">ganutils.ai</a></code></dt>
+<dt id="ganutils.api.twilio.client.TwilioClient"><code class="flex name class">
+<span>class <span class="ident">TwilioClient</span></span>
+<span>(</span><span>account_sid, auth_token, account_phone)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Initiate a custom Twilio Client</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TwilioClient(object):
+
+    def __init__(self, account_sid, auth_token, account_phone):
+        &#34;&#34;&#34;
+        Initiate a custom Twilio Client
+        &#34;&#34;&#34;
+        self.client = Client(account_sid, auth_token)
+        self.account_phone = account_phone
+
+    ##########################
+    # Twilio API
+    ##########################
+
+    def text(self, to_number, text_body):
+        return self.client.messages.create(
+                from_=self.account_phone,
+                to=to_number,
+                body=text_body)</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="ganutils.api.twilio.client.TwilioClient.text"><code class="name flex">
+<span>def <span class="ident">text</span></span>(<span>self, to_number, text_body)</span>
+</code></dt>
 <dd>
 <section class="desc"></section>
-</dd>
-<dt><code class="name"><a title="ganutils.algorithms" href="algorithms/index.html">ganutils.algorithms</a></code></dt>
-<dd>
-<section class="desc"></section>
-</dd>
-<dt><code class="name"><a title="ganutils.api" href="api/index.html">ganutils.api</a></code></dt>
-<dd>
-<section class="desc"></section>
-</dd>
-<dt><code class="name"><a title="ganutils.data" href="data/index.html">ganutils.data</a></code></dt>
-<dd>
-<section class="desc"></section>
-</dd>
-<dt><code class="name"><a title="ganutils.scripts" href="scripts/index.html">ganutils.scripts</a></code></dt>
-<dd>
-<section class="desc"></section>
-</dd>
-<dt><code class="name"><a title="ganutils.utils" href="utils/index.html">ganutils.utils</a></code></dt>
-<dd>
-<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def text(self, to_number, text_body):
+    return self.client.messages.create(
+            from_=self.account_phone,
+            to=to_number,
+            body=text_body)</code></pre>
+</details>
 </dd>
 </dl>
-</section>
-<section>
-</section>
-<section>
-</section>
-<section>
+</dd>
+</dl>
 </section>
 </article>
 <nav id="sidebar">
@@ -69,14 +121,19 @@
 <ul></ul>
 </div>
 <ul id="index">
-<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<li><h3>Super-module</h3>
 <ul>
-<li><code><a title="ganutils.ai" href="ai/index.html">ganutils.ai</a></code></li>
-<li><code><a title="ganutils.algorithms" href="algorithms/index.html">ganutils.algorithms</a></code></li>
-<li><code><a title="ganutils.api" href="api/index.html">ganutils.api</a></code></li>
-<li><code><a title="ganutils.data" href="data/index.html">ganutils.data</a></code></li>
-<li><code><a title="ganutils.scripts" href="scripts/index.html">ganutils.scripts</a></code></li>
-<li><code><a title="ganutils.utils" href="utils/index.html">ganutils.utils</a></code></li>
+<li><code><a title="ganutils.api.twilio" href="index.html">ganutils.api.twilio</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="ganutils.api.twilio.client.TwilioClient" href="#ganutils.api.twilio.client.TwilioClient">TwilioClient</a></code></h4>
+<ul class="">
+<li><code><a title="ganutils.api.twilio.client.TwilioClient.text" href="#ganutils.api.twilio.client.TwilioClient.text">text</a></code></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
