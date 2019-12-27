@@ -1,4 +1,4 @@
-"""client
+"""
 A Client for interfacing with GitHub
 """
 
@@ -27,17 +27,57 @@ class GithubClient(object):
         """
         return json.dumps(obj)
 
-    def post(self, url, data={}):
-        """
-        Make a POST call to URL with DATA and return the response.
-        """
-        return self.session.post(url, self.serialize(data))
+    ##########################
+    # GitHub Repo API
+    ##########################
 
-    def patch(self, url, data={}):
+    def list_my_repos(self, visibility="all", affiliation="owner"):
         """
-        Make a PATCH call to URL with DATA and return the response.
+        List repositories of current authenticated client user.
+
+        Args:
+            visibility : string
+                Can be one of `all`, `public`, or `private`.\n
+                Default: `all`
+
+            affiliation : string
+                Comma-separated list of values. Can include:
+
+                * `owner`: repos owned by the authenticated user.
+                * `collaborator`: repos that the user has been added to as a collaborator.
+                * `organization_member`: repos that the user has access to through being a member of an organization. This includes every repository on every team that the user is on.
+
+                Default: `owner`
+
+        Returns:
+            A response of all repos metadata
         """
-        return self.session.patch(url, self.serialize(data))
+        url = get_api_endpoint(endpoint="repo", method="list-mine")
+        return self.session.get(url, params={'visibility': visibility,
+                                             'affiliation': affiliation})
+
+
+    ############################
+    # GitHub Pull Requests API
+    ############################
+
+    def list_pulls(self, repo_owner, repo_name, state="open"):
+        """
+        List pull requests of given repo.
+        """
+        url = get_api_endpoint(endpoint="pull", method="list")
+        url = url.format(repo_owner=repo_owner, repo_name=repo_name)
+        return self.session.get(url, params={'state': state})
+
+    def merge_pull(self, repo_owner, repo_name, pull_number):
+        """
+        Merge a given pull request
+        """
+        url = get_api_endpoint(endpoint="pull", method="merge")
+        url = url.format(repo_owner=repo_owner,
+                         repo_name=repo_name,
+                         pull_number=pull_number)
+        return self.session.put(url)
 
     ##########################
     # GitHub Issue API
@@ -50,7 +90,7 @@ class GithubClient(object):
         """
         url = get_api_endpoint(endpoint="issue", method="create")
         url = url.format(repo_owner=repo_owner, repo_name=repo_name)
-        return self.post(url, {'title': title, 'body': body})
+        return self.session.post(url, data={'title': title, 'body': body})
 
     def close_issue(self, repo_owner, repo_name, issue_number):
         """
@@ -61,5 +101,5 @@ class GithubClient(object):
         url = url.format(repo_owner=repo_owner,
                          repo_name=repo_name,
                          issue_number=issue_number)
-        return self.patch(url, {"state": "closed"})
+        return self.session.patch(url, data={"state": "closed"})
 
