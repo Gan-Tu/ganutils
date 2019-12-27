@@ -5,7 +5,14 @@ API_ROOT = "https://api.github.com"
 API_ENDPOINTS = {
   "issue": {
     "create": "/repos/{repo_owner}/{repo_name}/issues",
-    "close": "/repos/{repo_owner}/{repo_name}/issues/{issue_number}"
+    "close": "/repos/{repo_owner}/{repo_name}/issues/{issue_number}",
+  },
+  "repo": {
+    "list-mine": "/user/repos",
+  },
+  "pull": {
+    "list": "/repos/{repo_owner}/{repo_name}/pulls",
+    "merge": "/repos/{repo_owner}/{repo_name}/pulls/{pull_number}/merge"
   }
 }
 
