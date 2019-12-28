@@ -39,3 +39,10 @@ jobs:
         keywords:  '["new", "feature", "rename", "refactor", "style", "support", "implement"]'
         assignees: '["Michael-Tu"]'
         labels: '["enhancement"]'
+    - name: "Apply labels to issues related with: deprecate"
+      uses: Naturalclar/issue-action@v1.0.0
+      with:
+        github-token: "${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}"
+        keywords:  '["deprecate", "remove", "deprecation"]'
+        assignees: '["Michael-Tu"]'
+        labels: '["deprecate"]'
