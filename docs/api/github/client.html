@@ -5,8 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.7.2" />
 <title>ganutils.api.github.client API documentation</title>
-<meta name="description" content="client
-A Client for interfacing with GitHub" />
+<meta name="description" content="A Client for interfacing with GitHub" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -21,13 +20,12 @@ A Client for interfacing with GitHub" />
 <h1 class="title">Module <code>ganutils.api.github.client</code></h1>
 </header>
 <section id="section-intro">
-<p>client
-A Client for interfacing with GitHub</p>
+<p>A Client for interfacing with GitHub</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">&#34;&#34;&#34;client
+<pre><code class="python">&#34;&#34;&#34;
 A Client for interfacing with GitHub
 &#34;&#34;&#34;
 
@@ -56,17 +54,57 @@ class GithubClient(object):
         &#34;&#34;&#34;
         return json.dumps(obj)
 
-    def post(self, url, data={}):
-        &#34;&#34;&#34;
-        Make a POST call to URL with DATA and return the response.
-        &#34;&#34;&#34;
-        return self.session.post(url, self.serialize(data))
+    ##########################
+    # GitHub Repo API
+    ##########################
 
-    def patch(self, url, data={}):
+    def list_my_repos(self, visibility=&#34;all&#34;, affiliation=&#34;owner&#34;):
         &#34;&#34;&#34;
-        Make a PATCH call to URL with DATA and return the response.
+        List repositories of current authenticated client user.
+
+        Args:
+            visibility : string
+                Can be one of `all`, `public`, or `private`.\n
+                Default: `all`
+
+            affiliation : string
+                Comma-separated list of values. Can include:
+
+                * `owner`: repos owned by the authenticated user.
+                * `collaborator`: repos that the user has been added to as a collaborator.
+                * `organization_member`: repos that the user has access to through being a member of an organization. This includes every repository on every team that the user is on.
+
+                Default: `owner`
+
+        Returns:
+            A response of all repos metadata
         &#34;&#34;&#34;
-        return self.session.patch(url, self.serialize(data))
+        url = get_api_endpoint(endpoint=&#34;repo&#34;, method=&#34;list-mine&#34;)
+        return self.session.get(url, params={&#39;visibility&#39;: visibility,
+                                             &#39;affiliation&#39;: affiliation})
+
+
+    ############################
+    # GitHub Pull Requests API
+    ############################
+
+    def list_pulls(self, repo_owner, repo_name, state=&#34;open&#34;):
+        &#34;&#34;&#34;
+        List pull requests of given repo.
+        &#34;&#34;&#34;
+        url = get_api_endpoint(endpoint=&#34;pull&#34;, method=&#34;list&#34;)
+        url = url.format(repo_owner=repo_owner, repo_name=repo_name)
+        return self.session.get(url, params={&#39;state&#39;: state})
+
+    def merge_pull(self, repo_owner, repo_name, pull_number):
+        &#34;&#34;&#34;
+        Merge a given pull request
+        &#34;&#34;&#34;
+        url = get_api_endpoint(endpoint=&#34;pull&#34;, method=&#34;merge&#34;)
+        url = url.format(repo_owner=repo_owner,
+                         repo_name=repo_name,
+                         pull_number=pull_number)
+        return self.session.put(url)
 
     ##########################
     # GitHub Issue API
@@ -79,7 +117,7 @@ class GithubClient(object):
         &#34;&#34;&#34;
         url = get_api_endpoint(endpoint=&#34;issue&#34;, method=&#34;create&#34;)
         url = url.format(repo_owner=repo_owner, repo_name=repo_name)
-        return self.post(url, {&#39;title&#39;: title, &#39;body&#39;: body})
+        return self.session.post(url, data={&#39;title&#39;: title, &#39;body&#39;: body})
 
     def close_issue(self, repo_owner, repo_name, issue_number):
         &#34;&#34;&#34;
@@ -90,7 +128,7 @@ class GithubClient(object):
         url = url.format(repo_owner=repo_owner,
                          repo_name=repo_name,
                          issue_number=issue_number)
-        return self.patch(url, {&#34;state&#34;: &#34;closed&#34;})</code></pre>
+        return self.session.patch(url, data={&#34;state&#34;: &#34;closed&#34;})</code></pre>
 </details>
 </section>
 <section>
@@ -132,17 +170,57 @@ class GithubClient(object):
         &#34;&#34;&#34;
         return json.dumps(obj)
 
-    def post(self, url, data={}):
-        &#34;&#34;&#34;
-        Make a POST call to URL with DATA and return the response.
-        &#34;&#34;&#34;
-        return self.session.post(url, self.serialize(data))
+    ##########################
+    # GitHub Repo API
+    ##########################
 
-    def patch(self, url, data={}):
+    def list_my_repos(self, visibility=&#34;all&#34;, affiliation=&#34;owner&#34;):
         &#34;&#34;&#34;
-        Make a PATCH call to URL with DATA and return the response.
+        List repositories of current authenticated client user.
+
+        Args:
+            visibility : string
+                Can be one of `all`, `public`, or `private`.\n
+                Default: `all`
+
+            affiliation : string
+                Comma-separated list of values. Can include:
+
+                * `owner`: repos owned by the authenticated user.
+                * `collaborator`: repos that the user has been added to as a collaborator.
+                * `organization_member`: repos that the user has access to through being a member of an organization. This includes every repository on every team that the user is on.
+
+                Default: `owner`
+
+        Returns:
+            A response of all repos metadata
         &#34;&#34;&#34;
-        return self.session.patch(url, self.serialize(data))
+        url = get_api_endpoint(endpoint=&#34;repo&#34;, method=&#34;list-mine&#34;)
+        return self.session.get(url, params={&#39;visibility&#39;: visibility,
+                                             &#39;affiliation&#39;: affiliation})
+
+
+    ############################
+    # GitHub Pull Requests API
+    ############################
+
+    def list_pulls(self, repo_owner, repo_name, state=&#34;open&#34;):
+        &#34;&#34;&#34;
+        List pull requests of given repo.
+        &#34;&#34;&#34;
+        url = get_api_endpoint(endpoint=&#34;pull&#34;, method=&#34;list&#34;)
+        url = url.format(repo_owner=repo_owner, repo_name=repo_name)
+        return self.session.get(url, params={&#39;state&#39;: state})
+
+    def merge_pull(self, repo_owner, repo_name, pull_number):
+        &#34;&#34;&#34;
+        Merge a given pull request
+        &#34;&#34;&#34;
+        url = get_api_endpoint(endpoint=&#34;pull&#34;, method=&#34;merge&#34;)
+        url = url.format(repo_owner=repo_owner,
+                         repo_name=repo_name,
+                         pull_number=pull_number)
+        return self.session.put(url)
 
     ##########################
     # GitHub Issue API
@@ -155,7 +233,7 @@ class GithubClient(object):
         &#34;&#34;&#34;
         url = get_api_endpoint(endpoint=&#34;issue&#34;, method=&#34;create&#34;)
         url = url.format(repo_owner=repo_owner, repo_name=repo_name)
-        return self.post(url, {&#39;title&#39;: title, &#39;body&#39;: body})
+        return self.session.post(url, data={&#39;title&#39;: title, &#39;body&#39;: body})
 
     def close_issue(self, repo_owner, repo_name, issue_number):
         &#34;&#34;&#34;
@@ -166,7 +244,7 @@ class GithubClient(object):
         url = url.format(repo_owner=repo_owner,
                          repo_name=repo_name,
                          issue_number=issue_number)
-        return self.patch(url, {&#34;state&#34;: &#34;closed&#34;})</code></pre>
+        return self.session.patch(url, data={&#34;state&#34;: &#34;closed&#34;})</code></pre>
 </details>
 <h3>Methods</h3>
 <dl>
@@ -189,7 +267,7 @@ the given ISSUE_NUMBER. Return the response.</p></section>
     url = url.format(repo_owner=repo_owner,
                      repo_name=repo_name,
                      issue_number=issue_number)
-    return self.patch(url, {&#34;state&#34;: &#34;closed&#34;})</code></pre>
+    return self.session.patch(url, data={&#34;state&#34;: &#34;closed&#34;})</code></pre>
 </details>
 </dd>
 <dt id="ganutils.api.github.client.GithubClient.create_issue"><code class="name flex">
@@ -209,39 +287,103 @@ the given TITLE and BODY. Return the response.</p></section>
     &#34;&#34;&#34;
     url = get_api_endpoint(endpoint=&#34;issue&#34;, method=&#34;create&#34;)
     url = url.format(repo_owner=repo_owner, repo_name=repo_name)
-    return self.post(url, {&#39;title&#39;: title, &#39;body&#39;: body})</code></pre>
+    return self.session.post(url, data={&#39;title&#39;: title, &#39;body&#39;: body})</code></pre>
 </details>
 </dd>
-<dt id="ganutils.api.github.client.GithubClient.patch"><code class="name flex">
-<span>def <span class="ident">patch</span></span>(<span>self, url, data={})</span>
+<dt id="ganutils.api.github.client.GithubClient.list_my_repos"><code class="name flex">
+<span>def <span class="ident">list_my_repos</span></span>(<span>self, visibility='all', affiliation='owner')</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Make a PATCH call to URL with DATA and return the response.</p></section>
+<section class="desc"><p>List repositories of current authenticated client user.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>visibility</code></strong> :&ensp;<code>string</code></dt>
+<dd>
+<p>Can be one of <code>all</code>, <code>public</code>, or <code>private</code>.</p>
+<p>Default: <code>all</code></p>
+</dd>
+<dt><strong><code>affiliation</code></strong> :&ensp;<code>string</code></dt>
+<dd>
+<p>Comma-separated list of values. Can include:</p>
+<ul>
+<li><code>owner</code>: repos owned by the authenticated user.</li>
+<li><code>collaborator</code>: repos that the user has been added to as a collaborator.</li>
+<li><code>organization_member</code>: repos that the user has access to through being a member of an organization. This includes every repository on every team that the user is on.</li>
+</ul>
+<p>Default: <code>owner</code></p>
+</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>A</code> <code>response</code> of <code>all</code> <code>repos</code> <code>metadata</code></dt>
+<dd>&nbsp;</dd>
+</dl></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def patch(self, url, data={}):
+<pre><code class="python">def list_my_repos(self, visibility=&#34;all&#34;, affiliation=&#34;owner&#34;):
     &#34;&#34;&#34;
-    Make a PATCH call to URL with DATA and return the response.
+    List repositories of current authenticated client user.
+
+    Args:
+        visibility : string
+            Can be one of `all`, `public`, or `private`.\n
+            Default: `all`
+
+        affiliation : string
+            Comma-separated list of values. Can include:
+
+            * `owner`: repos owned by the authenticated user.
+            * `collaborator`: repos that the user has been added to as a collaborator.
+            * `organization_member`: repos that the user has access to through being a member of an organization. This includes every repository on every team that the user is on.
+
+            Default: `owner`
+
+    Returns:
+        A response of all repos metadata
     &#34;&#34;&#34;
-    return self.session.patch(url, self.serialize(data))</code></pre>
+    url = get_api_endpoint(endpoint=&#34;repo&#34;, method=&#34;list-mine&#34;)
+    return self.session.get(url, params={&#39;visibility&#39;: visibility,
+                                         &#39;affiliation&#39;: affiliation})</code></pre>
 </details>
 </dd>
-<dt id="ganutils.api.github.client.GithubClient.post"><code class="name flex">
-<span>def <span class="ident">post</span></span>(<span>self, url, data={})</span>
+<dt id="ganutils.api.github.client.GithubClient.list_pulls"><code class="name flex">
+<span>def <span class="ident">list_pulls</span></span>(<span>self, repo_owner, repo_name, state='open')</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Make a POST call to URL with DATA and return the response.</p></section>
+<section class="desc"><p>List pull requests of given repo.</p></section>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def post(self, url, data={}):
+<pre><code class="python">def list_pulls(self, repo_owner, repo_name, state=&#34;open&#34;):
     &#34;&#34;&#34;
-    Make a POST call to URL with DATA and return the response.
+    List pull requests of given repo.
     &#34;&#34;&#34;
-    return self.session.post(url, self.serialize(data))</code></pre>
+    url = get_api_endpoint(endpoint=&#34;pull&#34;, method=&#34;list&#34;)
+    url = url.format(repo_owner=repo_owner, repo_name=repo_name)
+    return self.session.get(url, params={&#39;state&#39;: state})</code></pre>
+</details>
+</dd>
+<dt id="ganutils.api.github.client.GithubClient.merge_pull"><code class="name flex">
+<span>def <span class="ident">merge_pull</span></span>(<span>self, repo_owner, repo_name, pull_number)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Merge a given pull request</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def merge_pull(self, repo_owner, repo_name, pull_number):
+    &#34;&#34;&#34;
+    Merge a given pull request
+    &#34;&#34;&#34;
+    url = get_api_endpoint(endpoint=&#34;pull&#34;, method=&#34;merge&#34;)
+    url = url.format(repo_owner=repo_owner,
+                     repo_name=repo_name,
+                     pull_number=pull_number)
+    return self.session.put(url)</code></pre>
 </details>
 </dd>
 <dt id="ganutils.api.github.client.GithubClient.serialize"><code class="name flex">
@@ -280,11 +422,12 @@ the given TITLE and BODY. Return the response.</p></section>
 <ul>
 <li>
 <h4><code><a title="ganutils.api.github.client.GithubClient" href="#ganutils.api.github.client.GithubClient">GithubClient</a></code></h4>
-<ul class="">
+<ul class="two-column">
 <li><code><a title="ganutils.api.github.client.GithubClient.close_issue" href="#ganutils.api.github.client.GithubClient.close_issue">close_issue</a></code></li>
 <li><code><a title="ganutils.api.github.client.GithubClient.create_issue" href="#ganutils.api.github.client.GithubClient.create_issue">create_issue</a></code></li>
-<li><code><a title="ganutils.api.github.client.GithubClient.patch" href="#ganutils.api.github.client.GithubClient.patch">patch</a></code></li>
-<li><code><a title="ganutils.api.github.client.GithubClient.post" href="#ganutils.api.github.client.GithubClient.post">post</a></code></li>
+<li><code><a title="ganutils.api.github.client.GithubClient.list_my_repos" href="#ganutils.api.github.client.GithubClient.list_my_repos">list_my_repos</a></code></li>
+<li><code><a title="ganutils.api.github.client.GithubClient.list_pulls" href="#ganutils.api.github.client.GithubClient.list_pulls">list_pulls</a></code></li>
+<li><code><a title="ganutils.api.github.client.GithubClient.merge_pull" href="#ganutils.api.github.client.GithubClient.merge_pull">merge_pull</a></code></li>
 <li><code><a title="ganutils.api.github.client.GithubClient.serialize" href="#ganutils.api.github.client.GithubClient.serialize">serialize</a></code></li>
 </ul>
 </li>
