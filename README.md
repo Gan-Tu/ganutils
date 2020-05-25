@@ -15,6 +15,8 @@ To install, simply run
 $ pip install ganutils
 ```
 
+To use the AI package, you will need to install [PyTorch](https://pytorch.org/get-started/locally/) yourself.
+
 ## Deployment
 
 To deploy new versions to PyPi, change version number in `setup.py` and either
