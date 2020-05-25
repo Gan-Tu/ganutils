@@ -16,8 +16,6 @@ setup(
   url = 'https://github.com/Michael-Tu/ganutils',
   keywords = ['tugan', 'utils', 'tools'],
   install_requires=[
-      'torch',
-      'torchvision',
       'numpy',
       'sklearn',
       'tqdm',
