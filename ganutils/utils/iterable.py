@@ -8,24 +8,24 @@ Helpers for dealing with iterables
 #
 
 
-def flattenCustom(lst, flattenTypes):
-    def flattenHelper(seq):
+def flatten_custom(lst, flatten_types):
+    def flatten_helper(seq):
         for x in seq:
-            if isinstance(x, flattenTypes):
-                yield from flattenCustom(x, flattenTypes)
+            if isinstance(x, flatten_types):
+                yield from flatten_custom(x, flatten_types)
             else:
                 yield x
-    return list(flattenHelper(lst))
+    return list(flatten_helper(lst))
 
 
 def flatten(lst):
-    return flattenCustom(
+    return flatten_custom(
         lst,
-        flattenTypes=(list, tuple, set, dict)
+        flatten_types=(list, tuple, set, dict)
     )
 
 
-def shuffleFirstAxis(arrays):
+def shuffle_first_axis(arrays):
     """
     Shuffle a (possible) multi-dimensional list by first axis
     """
@@ -38,7 +38,7 @@ def unique(array):
     return list(set(array))
 
 
-def uniqueOrdered(array):
+def unique_ordered(array):
     seen = set()
     res = list()
     for x in array:
@@ -48,7 +48,7 @@ def uniqueOrdered(array):
     return res
 
 
-def strAll(array):
+def stringify_arr(array):
     return [str(x) for x in array]
 
 
@@ -57,26 +57,26 @@ def strAll(array):
 # ==============
 #
 
-def getDictKeys(d):
+def get_dict_keys(d):
     return list(d.keys())
 
 
-def getDictValues(d):
+def get_dict_values(d):
     return list(d.values())
 
 
-def getDictItems(d):
+def get_dict_items(d):
     return list(d.items())
 
 
-def toDict(keys, values):
+def to_dict(keys, values):
     if len(keys) != len(values):
         import warnings
         warnings.warn("Keys and values are not of same length.")
     return dict(zip(keys, values))
 
 
-def printDictPretty(d):
+def print_dict_pretty(d):
     import json
     print(json.dumps(d, indent=2))
 
@@ -86,12 +86,12 @@ def printDictPretty(d):
 # ==============
 #
 
-def randomElement(array):
+def randomly_pick_one(array):
     import random
     return random.choice(array)
 
 
-def randomElements(array, size, replacement=True):
+def randomly_pick_multiple(array, size, replacement=True):
     if replacement:
         import random
         return random.choices(array, k=size)
@@ -105,7 +105,7 @@ def randomElements(array, size, replacement=True):
 # ==============
 #
 
-def loadArrayFromString(string, dtype=None):
+def load_arr_from_string(string, dtype=None):
     import numpy as np
     from io import StringIO
     if dtype == None:

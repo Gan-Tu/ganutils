@@ -11,7 +11,7 @@ from multiprocessing import Pool, Lock
 # ===================================
 #
 
-def multiProcess(fn, iterable, num_threads, pbar=False, desc=None):
+def map_multiprocess(fn, iterable, num_threads, pbar=False, desc=None):
     iterable = tqdm(iterable, desc=desc) if pbar else iterable
     pool = Pool(num_threads)
     res = pool.map(fn, iterable)

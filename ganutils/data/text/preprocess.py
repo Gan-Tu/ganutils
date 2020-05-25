@@ -7,7 +7,7 @@ import string
 import unicodedata
 
 
-def normalizeUnicode(string, encoding="utf-8"):
+def normalize_unicode(string, encoding="utf-8"):
     if isinstance(string, type(b'')):
         string = string.decode(encoding)
     # replace "oe" and "ae" letters, or else they are dropped!
@@ -19,9 +19,9 @@ def normalizeUnicode(string, encoding="utf-8"):
     return string
 
 
-def normalizeString(string, encoding="utf-8"):
+def normalize_string(string, encoding="utf-8"):
     normalizedChar = [
-        normalizeUnicode(c) for c in string
+        normalize_unicode(c) for c in string
     ]
     normalizedChar = [
         normalizedChar[i]
@@ -31,7 +31,7 @@ def normalizeString(string, encoding="utf-8"):
     return "".join(normalizedChar)
 
 
-def padPunctuations(s, punct=".!?.。-!！?？'’,，:…()（）)'\""):
+def pad_punct(s, punct=".!?.。-!！?？'’,，:…()（）)'\""):
     return re.sub(r"([{}])".format(re.escape(punct)), r" \1 ", s)
 
 
@@ -43,7 +43,7 @@ def ngram(word, n):
     return res
 
 
-def stripEmoji(s):
+def strip_emoji(s):
     emoji_pattern = re.compile("["
                                u"\U0001F600-\U0001F64F"  # emoticons
                                u"\U0001F300-\U0001F5FF"  # symbols & pictographs
@@ -53,7 +53,7 @@ def stripEmoji(s):
     return emoji_pattern.sub(r"", s)
 
 
-def shrinkSpaces(s):
+def shrink_spaces(s):
     # special space-like characters
     s = s.replace("\xa0", " ")
     # shrink consecutive spaces into one
@@ -64,11 +64,11 @@ def shrinkSpaces(s):
     return s.strip()
 
 
-def convertEmailToToken(s, token="[email]"):
+def tokenize_email(s, token="[email]"):
     return re.sub(r"[a-zA-Z\+\-_\d\.]+@[a-zA-Z\+\d\.]+", token, s)
 
 
-def convertLinkToToken(s, token="[link]"):
+def tokenize_link(s, token="[link]"):
     s = re.sub(r"https?://[a-z/A-Z\+\?=\-_\d\.]+", token, s)
     s = re.sub(r"www\.[a-z/A-Z\+\?=\-_\d\.]+", token, s)
     # TODO(tugan): adds support for more top domain

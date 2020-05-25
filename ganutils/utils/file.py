@@ -24,11 +24,11 @@ def walk(source_dir):
     return paths
 
 
-def loadJSON(filepath, encoding="utf-8"):
+def load_json(filepath, encoding="utf-8"):
     return json.load(open(filepath, "r", encoding=encoding))
 
 
-def dumpJSON(obj, filepath, indent=None, ensure_ascii=False, makedir=True):
+def dump_json(obj, filepath, indent=None, ensure_ascii=False, makedir=True):
     if makedir:
         makedirs(filepath)
     json.dump(
@@ -39,11 +39,11 @@ def dumpJSON(obj, filepath, indent=None, ensure_ascii=False, makedir=True):
     )
 
 
-def loadPickle(filepath):
+def load_pickle(filepath):
     return pickle.load(open(filepath, "rb"))
 
 
-def dumpPickle(obj, filepath, makedir=True):
+def dump_pickle(obj, filepath, makedir=True):
     if makedir:
         makedirs(filepath)
     pickle.dump(obj, open(filepath, "wb"))
