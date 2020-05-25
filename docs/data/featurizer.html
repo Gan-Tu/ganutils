@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.7.2" />
+<meta name="generator" content="pdoc 0.8.1" />
 <title>ganutils.data.featurizer API documentation</title>
 <meta name="description" content="featurizer
 Core Featurization Pipeline" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
-<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
-<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
 </head>
 <body>
@@ -36,7 +36,7 @@ from __future__ import unicode_literals, print_function, division
 # define predefined tokens
 
 PREDEFINED_LABELS = [
-    &#34;pad&#34;, 
+    &#34;pad&#34;,
     &#34;default&#34;
 ]
 
@@ -61,13 +61,13 @@ PREDEFINED_VOCAB = [
 # ===================
 #
 
-def getVocabEncoding(words):
+def get_vocab_encoding(words):
     words.extend(PREDEFINED_VOCAB)
     words = list(sorted(set(words)))
-    return { w: i for i,w in enumerate(words)}
+    return {w: i for i, w in enumerate(words)}
 
 
-def encodeWord(word, vocab2idx, case_insensitive=True):
+def encode_word(word, vocab2idx, case_insensitive=True):
     # sanity check
     for w in PREDEFINED_VOCAB:
         assert w in vocab2idx, \
@@ -93,15 +93,15 @@ def encodeWord(word, vocab2idx, case_insensitive=True):
         return vocab2idx[&#34;[unk]&#34;]
 
 
-def getCharEncoding(chars):
+def get_char_encoding(chars):
     if type(chars) == str:
         chars = list(chars)
     chars.extend(PREDEFINED_ALPHABET)
     chars = list(sorted(set(chars)))
-    return { c: i for i,c in enumerate(chars)}
+    return {c: i for i, c in enumerate(chars)}
 
 
-def encodeChar(char, char2idx, case_insensitive=True):
+def encode_char(char, char2idx, case_insensitive=True):
     # sanity check
     for c in PREDEFINED_ALPHABET:
         assert c in char2idx, \
@@ -123,19 +123,19 @@ def encodeChar(char, char2idx, case_insensitive=True):
         return char2idx[&#34;[unk]&#34;]
 
 
-def getLabelEncoding(labels):
+def get_label_encoding(labels):
     labels.extend(PREDEFINED_LABELS)
     labels = list(sorted(set(labels)))
-    return { l: i for i,l in enumerate(labels)}
+    return {l: i for i, l in enumerate(labels)}
 
 
-def encodeLabel(label, label2idx):
+def encode_label(label, label2idx):
     assert &#34;default&#34; in label2idx, \
         &#34;predefined token &#39;default&#39; not in label2idx&#34;
     return label2idx.get(label, label2idx[&#34;default&#34;])
 
 
-def onehotEncode(labels, label_size):
+def one_hot_encode(labels, label_size):
     &#34;&#34;&#34;
     Convert a list of integer LABELS to a binary class matrix.
     &#34;&#34;&#34;
@@ -148,77 +148,77 @@ def onehotEncode(labels, label_size):
 # ===================
 #
 
-def featurizeWords(words, vocab2idx, case_insensitive=True, doc_maxlen=None):
-    words = [ 
-        encodeWord(word, vocab2idx, case_insensitive) 
+def featurize_words(words, vocab2idx, case_insensitive=True, doc_maxlen=None):
+    words = [
+        encode_word(word, vocab2idx, case_insensitive)
         for word in words
     ]
     # pad/truncate documents, if necessary
     if doc_maxlen is not None:
-        words = padSequences(
-            [words], 
-            doc_maxlen, 
-            dtype=int, 
+        words = pad_sequences(
+            [words],
+            doc_maxlen,
+            dtype=int,
             value=vocab2idx[&#34;[pad]&#34;]
         )[0]
     return words
 
 
-def featurizeChars(words, char2idx, case_insensitive=True, 
-                   word_maxlen=None, doc_maxlen=None):
+def featurize_chars(words, char2idx, case_insensitive=True,
+                    word_maxlen=None, doc_maxlen=None):
     chars = [[
-        encodeChar(c, char2idx, case_insensitive) 
+        encode_char(c, char2idx, case_insensitive)
         for c in word
-    ] for word in words ]
+    ] for word in words]
     # pad/truncate documents, if necessary
     if word_maxlen is not None:
-        chars = padSequences(
+        chars = pad_sequences(
             chars,
-            word_maxlen, 
-            dtype=int, 
+            word_maxlen,
+            dtype=int,
             value=char2idx[&#34;[pad]&#34;]
         )
     if doc_maxlen is not None:
         assert word_maxlen,  &#34;word_maxlen required for doc_maxlen&#34;
-        chars = padSequences(
-            [chars], 
-            doc_maxlen, 
-            dtype=int, 
+        chars = pad_sequences(
+            [chars],
+            doc_maxlen,
+            dtype=int,
             value=char2idx[&#34;[pad]&#34;]
         )[0]
     return chars
 
 
-def smoothLabel(onehot_labels, label_size, epsilon):
+def smooth_label(onehot_labels, label_size, epsilon):
     zero_value = epsilon / (label_size - 1)
     one_value = 1 - epsilon
     # [0, ..., 1, ..., 0]
-    smoothed_labels  = onehot_labels * one_value
+    smoothed_labels = onehot_labels * one_value
     # [0, ..., 1 - epsilon, ..., 0]
     smoothed_labels += (1 - onehot_labels) * zero_value
     # [epsilon/(k-1), ..., 1 - epsilon, ... epsilon/(k-1)]
     return smoothed_labels
 
 
-def featurizeLabels(labels, label2idx, label_size, doc_maxlen=None, 
-                    onehot=False, smoothing_epsilon=None):
-    labels = [ 
-        encodeLabel(label, label2idx) 
+def featurize_labels(labels, label2idx, label_size, doc_maxlen=None,
+                     onehot=False, smoothing_epsilon=None):
+    labels = [
+        encode_label(label, label2idx)
         for label in labels
     ]
     # pad/truncate documents, if necessary
     if doc_maxlen is not None:
-        labels = padSequences(
-            [labels], 
-            doc_maxlen, 
-            dtype=int, 
+        labels = pad_sequences(
+            [labels],
+            doc_maxlen,
+            dtype=int,
             value=label2idx[&#34;pad&#34;]
         )[0]
     if onehot:
-        labels = onehotEncode(labels, label_size)
+        labels = one_hot_encode(labels, label_size)
         if smoothing_epsilon is not None:
             assert smoothing_epsilon &lt; 1, &#34;smoothing epsilon must be &lt; 1&#34;
-            labels = smoothLabel(labels, label_size, smoothing_epsilon)
+            labels = smooth_label(labels, label_size, smoothing_epsilon)
     return labels
 
 
@@ -227,15 +227,15 @@ def featurizeLabels(labels, label2idx, label_size, doc_maxlen=None,
 # =========================================
 #
 
-def padSequences(sequences, maxlen, dtype=&#39;float32&#39;, 
+def pad_sequences(sequences, maxlen, dtype=&#39;float32&#39;,
                   padding=&#39;post&#39;, truncating=&#39;post&#39;, value=0.0):
-    import keras.preprocessing as KP        
+    import keras.preprocessing as KP
     return KP.sequence.pad_sequences(
         sequences,
-        maxlen, 
-        dtype, 
-        padding, 
-        truncating, 
+        maxlen,
+        dtype,
+        padding,
+        truncating,
         value
     )</code></pre>
 </details>
@@ -247,16 +247,16 @@ def padSequences(sequences, maxlen, dtype=&#39;float32&#39;,
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="ganutils.data.featurizer.encodeChar"><code class="name flex">
-<span>def <span class="ident">encodeChar</span></span>(<span>char, char2idx, case_insensitive=True)</span>
+<dt id="ganutils.data.featurizer.encode_char"><code class="name flex">
+<span>def <span class="ident">encode_char</span></span>(<span>char, char2idx, case_insensitive=True)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def encodeChar(char, char2idx, case_insensitive=True):
+<pre><code class="python">def encode_char(char, char2idx, case_insensitive=True):
     # sanity check
     for c in PREDEFINED_ALPHABET:
         assert c in char2idx, \
@@ -278,31 +278,31 @@ def padSequences(sequences, maxlen, dtype=&#39;float32&#39;,
         return char2idx[&#34;[unk]&#34;]</code></pre>
 </details>
 </dd>
-<dt id="ganutils.data.featurizer.encodeLabel"><code class="name flex">
-<span>def <span class="ident">encodeLabel</span></span>(<span>label, label2idx)</span>
+<dt id="ganutils.data.featurizer.encode_label"><code class="name flex">
+<span>def <span class="ident">encode_label</span></span>(<span>label, label2idx)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def encodeLabel(label, label2idx):
+<pre><code class="python">def encode_label(label, label2idx):
     assert &#34;default&#34; in label2idx, \
         &#34;predefined token &#39;default&#39; not in label2idx&#34;
     return label2idx.get(label, label2idx[&#34;default&#34;])</code></pre>
 </details>
 </dd>
-<dt id="ganutils.data.featurizer.encodeWord"><code class="name flex">
-<span>def <span class="ident">encodeWord</span></span>(<span>word, vocab2idx, case_insensitive=True)</span>
+<dt id="ganutils.data.featurizer.encode_word"><code class="name flex">
+<span>def <span class="ident">encode_word</span></span>(<span>word, vocab2idx, case_insensitive=True)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def encodeWord(word, vocab2idx, case_insensitive=True):
+<pre><code class="python">def encode_word(word, vocab2idx, case_insensitive=True):
     # sanity check
     for w in PREDEFINED_VOCAB:
         assert w in vocab2idx, \
@@ -328,153 +328,153 @@ def padSequences(sequences, maxlen, dtype=&#39;float32&#39;,
         return vocab2idx[&#34;[unk]&#34;]</code></pre>
 </details>
 </dd>
-<dt id="ganutils.data.featurizer.featurizeChars"><code class="name flex">
-<span>def <span class="ident">featurizeChars</span></span>(<span>words, char2idx, case_insensitive=True, word_maxlen=None, doc_maxlen=None)</span>
+<dt id="ganutils.data.featurizer.featurize_chars"><code class="name flex">
+<span>def <span class="ident">featurize_chars</span></span>(<span>words, char2idx, case_insensitive=True, word_maxlen=None, doc_maxlen=None)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def featurizeChars(words, char2idx, case_insensitive=True, 
-                   word_maxlen=None, doc_maxlen=None):
+<pre><code class="python">def featurize_chars(words, char2idx, case_insensitive=True,
+                    word_maxlen=None, doc_maxlen=None):
     chars = [[
-        encodeChar(c, char2idx, case_insensitive) 
+        encode_char(c, char2idx, case_insensitive)
         for c in word
-    ] for word in words ]
+    ] for word in words]
     # pad/truncate documents, if necessary
     if word_maxlen is not None:
-        chars = padSequences(
+        chars = pad_sequences(
             chars,
-            word_maxlen, 
-            dtype=int, 
+            word_maxlen,
+            dtype=int,
             value=char2idx[&#34;[pad]&#34;]
         )
     if doc_maxlen is not None:
         assert word_maxlen,  &#34;word_maxlen required for doc_maxlen&#34;
-        chars = padSequences(
-            [chars], 
-            doc_maxlen, 
-            dtype=int, 
+        chars = pad_sequences(
+            [chars],
+            doc_maxlen,
+            dtype=int,
             value=char2idx[&#34;[pad]&#34;]
         )[0]
     return chars</code></pre>
 </details>
 </dd>
-<dt id="ganutils.data.featurizer.featurizeLabels"><code class="name flex">
-<span>def <span class="ident">featurizeLabels</span></span>(<span>labels, label2idx, label_size, doc_maxlen=None, onehot=False, smoothing_epsilon=None)</span>
+<dt id="ganutils.data.featurizer.featurize_labels"><code class="name flex">
+<span>def <span class="ident">featurize_labels</span></span>(<span>labels, label2idx, label_size, doc_maxlen=None, onehot=False, smoothing_epsilon=None)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def featurizeLabels(labels, label2idx, label_size, doc_maxlen=None, 
-                    onehot=False, smoothing_epsilon=None):
-    labels = [ 
-        encodeLabel(label, label2idx) 
+<pre><code class="python">def featurize_labels(labels, label2idx, label_size, doc_maxlen=None,
+                     onehot=False, smoothing_epsilon=None):
+    labels = [
+        encode_label(label, label2idx)
         for label in labels
     ]
     # pad/truncate documents, if necessary
     if doc_maxlen is not None:
-        labels = padSequences(
-            [labels], 
-            doc_maxlen, 
-            dtype=int, 
+        labels = pad_sequences(
+            [labels],
+            doc_maxlen,
+            dtype=int,
             value=label2idx[&#34;pad&#34;]
         )[0]
     if onehot:
-        labels = onehotEncode(labels, label_size)
+        labels = one_hot_encode(labels, label_size)
         if smoothing_epsilon is not None:
             assert smoothing_epsilon &lt; 1, &#34;smoothing epsilon must be &lt; 1&#34;
-            labels = smoothLabel(labels, label_size, smoothing_epsilon)
+            labels = smooth_label(labels, label_size, smoothing_epsilon)
     return labels</code></pre>
 </details>
 </dd>
-<dt id="ganutils.data.featurizer.featurizeWords"><code class="name flex">
-<span>def <span class="ident">featurizeWords</span></span>(<span>words, vocab2idx, case_insensitive=True, doc_maxlen=None)</span>
+<dt id="ganutils.data.featurizer.featurize_words"><code class="name flex">
+<span>def <span class="ident">featurize_words</span></span>(<span>words, vocab2idx, case_insensitive=True, doc_maxlen=None)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def featurizeWords(words, vocab2idx, case_insensitive=True, doc_maxlen=None):
-    words = [ 
-        encodeWord(word, vocab2idx, case_insensitive) 
+<pre><code class="python">def featurize_words(words, vocab2idx, case_insensitive=True, doc_maxlen=None):
+    words = [
+        encode_word(word, vocab2idx, case_insensitive)
         for word in words
     ]
     # pad/truncate documents, if necessary
     if doc_maxlen is not None:
-        words = padSequences(
-            [words], 
-            doc_maxlen, 
-            dtype=int, 
+        words = pad_sequences(
+            [words],
+            doc_maxlen,
+            dtype=int,
             value=vocab2idx[&#34;[pad]&#34;]
         )[0]
     return words</code></pre>
 </details>
 </dd>
-<dt id="ganutils.data.featurizer.getCharEncoding"><code class="name flex">
-<span>def <span class="ident">getCharEncoding</span></span>(<span>chars)</span>
+<dt id="ganutils.data.featurizer.get_char_encoding"><code class="name flex">
+<span>def <span class="ident">get_char_encoding</span></span>(<span>chars)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def getCharEncoding(chars):
+<pre><code class="python">def get_char_encoding(chars):
     if type(chars) == str:
         chars = list(chars)
     chars.extend(PREDEFINED_ALPHABET)
     chars = list(sorted(set(chars)))
-    return { c: i for i,c in enumerate(chars)}</code></pre>
+    return {c: i for i, c in enumerate(chars)}</code></pre>
 </details>
 </dd>
-<dt id="ganutils.data.featurizer.getLabelEncoding"><code class="name flex">
-<span>def <span class="ident">getLabelEncoding</span></span>(<span>labels)</span>
+<dt id="ganutils.data.featurizer.get_label_encoding"><code class="name flex">
+<span>def <span class="ident">get_label_encoding</span></span>(<span>labels)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def getLabelEncoding(labels):
+<pre><code class="python">def get_label_encoding(labels):
     labels.extend(PREDEFINED_LABELS)
     labels = list(sorted(set(labels)))
-    return { l: i for i,l in enumerate(labels)}</code></pre>
+    return {l: i for i, l in enumerate(labels)}</code></pre>
 </details>
 </dd>
-<dt id="ganutils.data.featurizer.getVocabEncoding"><code class="name flex">
-<span>def <span class="ident">getVocabEncoding</span></span>(<span>words)</span>
+<dt id="ganutils.data.featurizer.get_vocab_encoding"><code class="name flex">
+<span>def <span class="ident">get_vocab_encoding</span></span>(<span>words)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def getVocabEncoding(words):
+<pre><code class="python">def get_vocab_encoding(words):
     words.extend(PREDEFINED_VOCAB)
     words = list(sorted(set(words)))
-    return { w: i for i,w in enumerate(words)}</code></pre>
+    return {w: i for i, w in enumerate(words)}</code></pre>
 </details>
 </dd>
-<dt id="ganutils.data.featurizer.onehotEncode"><code class="name flex">
-<span>def <span class="ident">onehotEncode</span></span>(<span>labels, label_size)</span>
+<dt id="ganutils.data.featurizer.one_hot_encode"><code class="name flex">
+<span>def <span class="ident">one_hot_encode</span></span>(<span>labels, label_size)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Convert a list of integer LABELS to a binary class matrix.</p></section>
+<div class="desc"><p>Convert a list of integer LABELS to a binary class matrix.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def onehotEncode(labels, label_size):
+<pre><code class="python">def one_hot_encode(labels, label_size):
     &#34;&#34;&#34;
     Convert a list of integer LABELS to a binary class matrix.
     &#34;&#34;&#34;
@@ -482,42 +482,42 @@ def padSequences(sequences, maxlen, dtype=&#39;float32&#39;,
     return KU.to_categorical(labels, num_classes=label_size).astype(int)</code></pre>
 </details>
 </dd>
-<dt id="ganutils.data.featurizer.padSequences"><code class="name flex">
-<span>def <span class="ident">padSequences</span></span>(<span>sequences, maxlen, dtype='float32', padding='post', truncating='post', value=0.0)</span>
+<dt id="ganutils.data.featurizer.pad_sequences"><code class="name flex">
+<span>def <span class="ident">pad_sequences</span></span>(<span>sequences, maxlen, dtype='float32', padding='post', truncating='post', value=0.0)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def padSequences(sequences, maxlen, dtype=&#39;float32&#39;, 
+<pre><code class="python">def pad_sequences(sequences, maxlen, dtype=&#39;float32&#39;,
                   padding=&#39;post&#39;, truncating=&#39;post&#39;, value=0.0):
-    import keras.preprocessing as KP        
+    import keras.preprocessing as KP
     return KP.sequence.pad_sequences(
         sequences,
-        maxlen, 
-        dtype, 
-        padding, 
-        truncating, 
+        maxlen,
+        dtype,
+        padding,
+        truncating,
         value
     )</code></pre>
 </details>
 </dd>
-<dt id="ganutils.data.featurizer.smoothLabel"><code class="name flex">
-<span>def <span class="ident">smoothLabel</span></span>(<span>onehot_labels, label_size, epsilon)</span>
+<dt id="ganutils.data.featurizer.smooth_label"><code class="name flex">
+<span>def <span class="ident">smooth_label</span></span>(<span>onehot_labels, label_size, epsilon)</span>
 </code></dt>
 <dd>
-<section class="desc"></section>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def smoothLabel(onehot_labels, label_size, epsilon):
+<pre><code class="python">def smooth_label(onehot_labels, label_size, epsilon):
     zero_value = epsilon / (label_size - 1)
     one_value = 1 - epsilon
     # [0, ..., 1, ..., 0]
-    smoothed_labels  = onehot_labels * one_value
+    smoothed_labels = onehot_labels * one_value
     # [0, ..., 1 - epsilon, ..., 0]
     smoothed_labels += (1 - onehot_labels) * zero_value
     # [epsilon/(k-1), ..., 1 - epsilon, ... epsilon/(k-1)]
@@ -542,25 +542,25 @@ def padSequences(sequences, maxlen, dtype=&#39;float32&#39;,
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="two-column">
-<li><code><a title="ganutils.data.featurizer.encodeChar" href="#ganutils.data.featurizer.encodeChar">encodeChar</a></code></li>
-<li><code><a title="ganutils.data.featurizer.encodeLabel" href="#ganutils.data.featurizer.encodeLabel">encodeLabel</a></code></li>
-<li><code><a title="ganutils.data.featurizer.encodeWord" href="#ganutils.data.featurizer.encodeWord">encodeWord</a></code></li>
-<li><code><a title="ganutils.data.featurizer.featurizeChars" href="#ganutils.data.featurizer.featurizeChars">featurizeChars</a></code></li>
-<li><code><a title="ganutils.data.featurizer.featurizeLabels" href="#ganutils.data.featurizer.featurizeLabels">featurizeLabels</a></code></li>
-<li><code><a title="ganutils.data.featurizer.featurizeWords" href="#ganutils.data.featurizer.featurizeWords">featurizeWords</a></code></li>
-<li><code><a title="ganutils.data.featurizer.getCharEncoding" href="#ganutils.data.featurizer.getCharEncoding">getCharEncoding</a></code></li>
-<li><code><a title="ganutils.data.featurizer.getLabelEncoding" href="#ganutils.data.featurizer.getLabelEncoding">getLabelEncoding</a></code></li>
-<li><code><a title="ganutils.data.featurizer.getVocabEncoding" href="#ganutils.data.featurizer.getVocabEncoding">getVocabEncoding</a></code></li>
-<li><code><a title="ganutils.data.featurizer.onehotEncode" href="#ganutils.data.featurizer.onehotEncode">onehotEncode</a></code></li>
-<li><code><a title="ganutils.data.featurizer.padSequences" href="#ganutils.data.featurizer.padSequences">padSequences</a></code></li>
-<li><code><a title="ganutils.data.featurizer.smoothLabel" href="#ganutils.data.featurizer.smoothLabel">smoothLabel</a></code></li>
+<li><code><a title="ganutils.data.featurizer.encode_char" href="#ganutils.data.featurizer.encode_char">encode_char</a></code></li>
+<li><code><a title="ganutils.data.featurizer.encode_label" href="#ganutils.data.featurizer.encode_label">encode_label</a></code></li>
+<li><code><a title="ganutils.data.featurizer.encode_word" href="#ganutils.data.featurizer.encode_word">encode_word</a></code></li>
+<li><code><a title="ganutils.data.featurizer.featurize_chars" href="#ganutils.data.featurizer.featurize_chars">featurize_chars</a></code></li>
+<li><code><a title="ganutils.data.featurizer.featurize_labels" href="#ganutils.data.featurizer.featurize_labels">featurize_labels</a></code></li>
+<li><code><a title="ganutils.data.featurizer.featurize_words" href="#ganutils.data.featurizer.featurize_words">featurize_words</a></code></li>
+<li><code><a title="ganutils.data.featurizer.get_char_encoding" href="#ganutils.data.featurizer.get_char_encoding">get_char_encoding</a></code></li>
+<li><code><a title="ganutils.data.featurizer.get_label_encoding" href="#ganutils.data.featurizer.get_label_encoding">get_label_encoding</a></code></li>
+<li><code><a title="ganutils.data.featurizer.get_vocab_encoding" href="#ganutils.data.featurizer.get_vocab_encoding">get_vocab_encoding</a></code></li>
+<li><code><a title="ganutils.data.featurizer.one_hot_encode" href="#ganutils.data.featurizer.one_hot_encode">one_hot_encode</a></code></li>
+<li><code><a title="ganutils.data.featurizer.pad_sequences" href="#ganutils.data.featurizer.pad_sequences">pad_sequences</a></code></li>
+<li><code><a title="ganutils.data.featurizer.smooth_label" href="#ganutils.data.featurizer.smooth_label">smooth_label</a></code></li>
 </ul>
 </li>
 </ul>
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.2</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad()</script>
