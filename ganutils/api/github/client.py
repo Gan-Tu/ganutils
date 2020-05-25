@@ -7,6 +7,7 @@ import requests
 import json
 from .endpoints import get_api_endpoint
 
+
 class GithubClient(object):
 
     def __init__(self, access_token):
@@ -15,7 +16,6 @@ class GithubClient(object):
         """
         self.session = requests.Session()
         self.session.headers["Authorization"] = "token %s" % access_token
-
 
     ##########################
     # RESTful API Helper
@@ -55,7 +55,6 @@ class GithubClient(object):
         url = get_api_endpoint(endpoint="repo", method="list-mine")
         return self.session.get(url, params={'visibility': visibility,
                                              'affiliation': affiliation})
-
 
     ############################
     # GitHub Pull Requests API
@@ -102,4 +101,3 @@ class GithubClient(object):
                          repo_name=repo_name,
                          issue_number=issue_number)
         return self.session.patch(url, data={"state": "closed"})
-

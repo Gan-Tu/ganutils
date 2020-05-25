@@ -20,9 +20,9 @@ def flattenCustom(lst, flattenTypes):
 
 def flatten(lst):
     return flattenCustom(
-                lst, 
-                flattenTypes=(list, tuple, set, dict)
-            )
+        lst,
+        flattenTypes=(list, tuple, set, dict)
+    )
 
 
 def shuffleFirstAxis(arrays):
@@ -110,8 +110,7 @@ def loadArrayFromString(string, dtype=None):
     from io import StringIO
     if dtype == None:
         dtype = np.float64
-    string = string.replace("[","")
-    string = string.replace("]","")
+    string = string.replace("[", "")
+    string = string.replace("]", "")
     string = string.replace(",", " ")
     return np.loadtxt(StringIO(string)).astype(dtype)
-

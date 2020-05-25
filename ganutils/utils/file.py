@@ -11,6 +11,7 @@ import pickle
 # ======================
 #
 
+
 def makedirs(filepath):
     os.makedirs(os.path.dirname(filepath), exist_ok=True)
 
@@ -29,11 +30,11 @@ def loadJSON(filepath, encoding="utf-8"):
 
 def dumpJSON(obj, filepath, indent=None, ensure_ascii=False, makedir=True):
     if makedir:
-        makedirs(filepath)    
+        makedirs(filepath)
     json.dump(
-        obj, 
-        open(filepath, "w"), 
-        indent=indent, 
+        obj,
+        open(filepath, "w"),
+        indent=indent,
         ensure_ascii=ensure_ascii
     )
 

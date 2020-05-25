@@ -16,6 +16,5 @@ def multiProcess(fn, iterable, num_threads, pbar=False, desc=None):
     pool = Pool(num_threads)
     res = pool.map(fn, iterable)
     pool.close()
-    pool.join() 
+    pool.join()
     return res
-
