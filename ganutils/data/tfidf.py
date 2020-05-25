@@ -6,7 +6,7 @@ import math
 from collections import Counter
 
 
-def countTermFrequency(documents):
+def count_term_freq(documents):
     counter = Counter()
     for doc in documents:
         for w in doc:
@@ -14,13 +14,13 @@ def countTermFrequency(documents):
     return counter
 
 
-def countDocumentFrequency(documents):
-    return countTermFrequency([set(doc) for doc in documents])
+def count_doc_freq(documents):
+    return count_term_freq([set(doc) for doc in documents])
 
 
-def scoreTFIDF(documents, min_term_freq=1, min_doc_freq=1):
-    term_counter = countTermFrequency(documents)
-    document_counter = countDocumentFrequency(documents)
+def compute_tfidf_scores(documents, min_term_freq=1, min_doc_freq=1):
+    term_counter = count_term_freq(documents)
+    document_counter = count_doc_freq(documents)
     # delete words that occur too infrequent
     if min_term_freq > 1:
         words_to_delete = [
@@ -58,11 +58,10 @@ def scoreTFIDF(documents, min_term_freq=1, min_doc_freq=1):
     return scores
 
 
-def selectWordsTFIDF(documents, n=None, min_term_freq=1, min_doc_freq=1):
-    tfidf_scores = scoreTFIDF(documents, min_term_freq, min_doc_freq)
+def pick_top_words(documents, n=None, min_term_freq=1, min_doc_freq=1):
+    tfidf_scores = compute_tfidf_scores(documents, min_term_freq, min_doc_freq)
     tfidf_scores = Counter(tfidf_scores)
     n = len(tfidf_scores) if n is None else n
     # In case of a tie among top N choices, the behavior is nondeterministic
     words = [w for w, cnt in tfidf_scores.most_common(n)]
     return words
-

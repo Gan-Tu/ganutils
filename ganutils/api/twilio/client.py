@@ -19,7 +19,7 @@ class TwilioClient(object):
     # Twilio API
     ##########################
 
-    def text(self, to_number, text_body):
+    def send_text(self, to_number, text_body):
         return self.client.messages.create(
             from_=self.account_phone,
             to=to_number,

@@ -6,7 +6,7 @@ def load_readme():
 setup(
   name = 'ganutils',
   packages = find_packages(),
-  version = '1.1',
+  version = '2.0',
   license='MIT',
   description = 'This is an installable python package for scripts I wrote for myself.',
   long_description=load_readme(),

@@ -32,13 +32,13 @@ PREDEFINED_VOCAB = [
 # ===================
 #
 
-def getVocabEncoding(words):
+def get_vocab_encoding(words):
     words.extend(PREDEFINED_VOCAB)
     words = list(sorted(set(words)))
     return {w: i for i, w in enumerate(words)}
 
 
-def encodeWord(word, vocab2idx, case_insensitive=True):
+def encode_word(word, vocab2idx, case_insensitive=True):
     # sanity check
     for w in PREDEFINED_VOCAB:
         assert w in vocab2idx, \
@@ -64,7 +64,7 @@ def encodeWord(word, vocab2idx, case_insensitive=True):
         return vocab2idx["[unk]"]
 
 
-def getCharEncoding(chars):
+def get_char_encoding(chars):
     if type(chars) == str:
         chars = list(chars)
     chars.extend(PREDEFINED_ALPHABET)
@@ -72,7 +72,7 @@ def getCharEncoding(chars):
     return {c: i for i, c in enumerate(chars)}
 
 
-def encodeChar(char, char2idx, case_insensitive=True):
+def encode_char(char, char2idx, case_insensitive=True):
     # sanity check
     for c in PREDEFINED_ALPHABET:
         assert c in char2idx, \
@@ -94,19 +94,19 @@ def encodeChar(char, char2idx, case_insensitive=True):
         return char2idx["[unk]"]
 
 
-def getLabelEncoding(labels):
+def get_label_encoding(labels):
     labels.extend(PREDEFINED_LABELS)
     labels = list(sorted(set(labels)))
     return {l: i for i, l in enumerate(labels)}
 
 
-def encodeLabel(label, label2idx):
+def encode_label(label, label2idx):
     assert "default" in label2idx, \
         "predefined token 'default' not in label2idx"
     return label2idx.get(label, label2idx["default"])
 
 
-def onehotEncode(labels, label_size):
+def one_hot_encode(labels, label_size):
     """
     Convert a list of integer LABELS to a binary class matrix.
     """
@@ -119,14 +119,14 @@ def onehotEncode(labels, label_size):
 # ===================
 #
 
-def featurizeWords(words, vocab2idx, case_insensitive=True, doc_maxlen=None):
+def featurize_words(words, vocab2idx, case_insensitive=True, doc_maxlen=None):
     words = [
-        encodeWord(word, vocab2idx, case_insensitive)
+        encode_word(word, vocab2idx, case_insensitive)
         for word in words
     ]
     # pad/truncate documents, if necessary
     if doc_maxlen is not None:
-        words = padSequences(
+        words = pad_sequences(
             [words],
             doc_maxlen,
             dtype=int,
@@ -135,15 +135,15 @@ def featurizeWords(words, vocab2idx, case_insensitive=True, doc_maxlen=None):
     return words
 
 
-def featurizeChars(words, char2idx, case_insensitive=True,
-                   word_maxlen=None, doc_maxlen=None):
+def featurize_chars(words, char2idx, case_insensitive=True,
+                    word_maxlen=None, doc_maxlen=None):
     chars = [[
-        encodeChar(c, char2idx, case_insensitive)
+        encode_char(c, char2idx, case_insensitive)
         for c in word
     ] for word in words]
     # pad/truncate documents, if necessary
     if word_maxlen is not None:
-        chars = padSequences(
+        chars = pad_sequences(
             chars,
             word_maxlen,
             dtype=int,
@@ -151,7 +151,7 @@ def featurizeChars(words, char2idx, case_insensitive=True,
         )
     if doc_maxlen is not None:
         assert word_maxlen,  "word_maxlen required for doc_maxlen"
-        chars = padSequences(
+        chars = pad_sequences(
             [chars],
             doc_maxlen,
             dtype=int,
@@ -160,7 +160,7 @@ def featurizeChars(words, char2idx, case_insensitive=True,
     return chars
 
 
-def smoothLabel(onehot_labels, label_size, epsilon):
+def smooth_label(onehot_labels, label_size, epsilon):
     zero_value = epsilon / (label_size - 1)
     one_value = 1 - epsilon
     # [0, ..., 1, ..., 0]
@@ -171,25 +171,25 @@ def smoothLabel(onehot_labels, label_size, epsilon):
     return smoothed_labels
 
 
-def featurizeLabels(labels, label2idx, label_size, doc_maxlen=None,
-                    onehot=False, smoothing_epsilon=None):
+def featurize_labels(labels, label2idx, label_size, doc_maxlen=None,
+                     onehot=False, smoothing_epsilon=None):
     labels = [
-        encodeLabel(label, label2idx)
+        encode_label(label, label2idx)
         for label in labels
     ]
     # pad/truncate documents, if necessary
     if doc_maxlen is not None:
-        labels = padSequences(
+        labels = pad_sequences(
             [labels],
             doc_maxlen,
             dtype=int,
             value=label2idx["pad"]
         )[0]
     if onehot:
-        labels = onehotEncode(labels, label_size)
+        labels = one_hot_encode(labels, label_size)
         if smoothing_epsilon is not None:
             assert smoothing_epsilon < 1, "smoothing epsilon must be < 1"
-            labels = smoothLabel(labels, label_size, smoothing_epsilon)
+            labels = smooth_label(labels, label_size, smoothing_epsilon)
     return labels
 
 
@@ -198,8 +198,8 @@ def featurizeLabels(labels, label2idx, label_size, doc_maxlen=None,
 # =========================================
 #
 
-def padSequences(sequences, maxlen, dtype='float32',
-                 padding='post', truncating='post', value=0.0):
+def pad_sequences(sequences, maxlen, dtype='float32',
+                  padding='post', truncating='post', value=0.0):
     import keras.preprocessing as KP
     return KP.sequence.pad_sequences(
         sequences,
@@ -209,4 +209,3 @@ def padSequences(sequences, maxlen, dtype='float32',
         truncating,
         value
     )
-

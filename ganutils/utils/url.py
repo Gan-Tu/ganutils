@@ -5,7 +5,7 @@ URL helpers
 import requests
 
 
-def fixURL(url):
+def fix_url(url):
     """
     .. todo:: fixes more cases
     """
@@ -19,5 +19,5 @@ def request(url, params=None):
     """
     .. todo:: use params as necessary
     """
-    url = fixURL(url)
+    url = fix_url(url)
     return requests.get(url).content
