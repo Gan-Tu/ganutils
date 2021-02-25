@@ -5,7 +5,7 @@
 This is an installable python package for scripts I wrote for myself.
 
 - PyPi Package Page [link](https://pypi.org/project/ganutils/)
-- Documentation [link](https://michael-tu.github.io/ganutils/)
+- Documentation [link](https://gan-tu.github.io/ganutils/)
 
 ## Installation
 
